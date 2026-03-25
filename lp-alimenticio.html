@@ -390,28 +390,62 @@
         .product-item i { font-size: 28px; margin-bottom: 10px; display: block; color: #7ecef4; }
         .product-item span { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9); }
 
-        /* TESTIMONIALS */
-        .testimonials { padding: 72px 24px; background: var(--gray-50); }
-        .testimonials-inner { max-width: 1000px; margin: 0 auto; }
-        .testimonials h2 { font-size: 30px; font-weight: 900; text-align: center; color: var(--primary-dark); margin-bottom: 8px; }
-        .testimonials .sub { text-align: center; color: var(--gray-600); font-size: 14px; margin-bottom: 40px; }
-        .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-        .testi-card {
-            background: white; border-radius: 14px;
-            padding: 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border-bottom: 3px solid var(--primary);
+        /* CREDIBILIDADE */
+        .credibility { padding: 72px 24px; background: var(--gray-50); }
+        .credibility-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+        .credibility h2 { font-size: 30px; font-weight: 900; color: var(--primary-dark); margin-bottom: 8px; }
+        .credibility .sub { color: var(--gray-600); font-size: 14px; margin-bottom: 56px; }
+
+        /* números */
+        .cred-numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 56px;
         }
-        .testi-stars { color: #F59E0B; font-size: 13px; margin-bottom: 12px; }
-        .testi-text { font-size: 13px; color: var(--gray-600); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
-        .testi-author { display: flex; align-items: center; gap: 10px; }
-        .testi-avatar {
-            width: 40px; height: 40px;
-            background: var(--primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 800; font-size: 15px;
+        .cred-num-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            border-top: 4px solid var(--primary);
+            transition: transform 0.2s;
         }
-        .testi-name { font-size: 13px; font-weight: 700; color: var(--primary-dark); }
-        .testi-role { font-size: 11px; color: var(--gray-400); }
+        .cred-num-card:hover { transform: translateY(-4px); }
+        .cred-num-card .big-num {
+            font-size: 40px; font-weight: 900;
+            color: var(--primary); line-height: 1;
+            margin-bottom: 6px;
+        }
+        .cred-num-card .big-label {
+            font-size: 12px; font-weight: 600;
+            color: var(--gray-600); text-transform: uppercase;
+            letter-spacing: 0.5px; line-height: 1.4;
+        }
+
+        /* setores */
+        .cred-sectors-title {
+            font-size: 13px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--gray-400); margin-bottom: 20px;
+        }
+        .cred-sectors {
+            display: flex; flex-wrap: wrap;
+            justify-content: center; gap: 12px;
+        }
+        .sector-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: white; border: 1.5px solid var(--primary);
+            color: var(--primary); border-radius: 40px;
+            padding: 10px 20px; font-size: 13px; font-weight: 700;
+            box-shadow: 0 2px 8px rgba(37,79,112,0.08);
+            transition: all 0.2s;
+        }
+        .sector-badge:hover {
+            background: var(--primary); color: white;
+            transform: translateY(-2px);
+        }
+        .sector-badge i { font-size: 14px; }
 
         /* CTA FINAL */
         .cta-final {
@@ -453,7 +487,8 @@
         @media (max-width: 900px) {
             .hero-inner { grid-template-columns: 1fr; }
             .hero h1 { font-size: 28px; }
-            .pain-grid, .benefits-grid, .testi-grid { grid-template-columns: 1fr; }
+            .pain-grid, .benefits-grid { grid-template-columns: 1fr; }
+            .cred-numbers { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2,1fr); }
             .form-grid { grid-template-columns: 1fr; }
             .hero-stats { flex-wrap: wrap; }
@@ -675,36 +710,42 @@
     </div>
 </section>
 
-<!-- DEPOIMENTOS -->
-<section class="testimonials">
-    <div class="testimonials-inner">
-        <h2>O que dizem nossos clientes</h2>
-        <p class="sub">Empresas do setor alimentício que confiam na Equiproindi</p>
-        <div class="testi-grid">
-            <div class="testi-card">
-                <div class="testi-stars">★★★★★</div>
-                <p class="testi-text">"Tivemos uma auditoria do MAPA com 15 dias de antecedência. A Equiproindi entregou todo o EPI com CA em dia antes do prazo. Salvou nossa operação."</p>
-                <div class="testi-author">
-                    <div class="testi-avatar">R</div>
-                    <div><div class="testi-name">Roberto M.</div><div class="testi-role">Gerente de Segurança · Frigorífico PR</div></div>
-                </div>
+<!-- CREDIBILIDADE -->
+<section class="credibility">
+    <div class="credibility-inner">
+        <div class="section-tag" style="margin:0 auto 16px;">Quem somos em números</div>
+        <h2>21 anos construindo credibilidade</h2>
+        <p class="sub">Números reais de uma empresa que permanece no mercado porque entrega o que promete</p>
+
+        <div class="cred-numbers">
+            <div class="cred-num-card reveal reveal-delay-1">
+                <div class="big-num" data-count="21" data-suffix="">21</div>
+                <div class="big-label">Anos no mercado</div>
             </div>
-            <div class="testi-card">
-                <div class="testi-stars">★★★★★</div>
-                <p class="testi-text">"Antes usava 3 fornecedores diferentes para EPI, uniforme e bordado. Com a Equiproindi resolvo tudo em um pedido. Economizo tempo e dinheiro."</p>
-                <div class="testi-author">
-                    <div class="testi-avatar">C</div>
-                    <div><div class="testi-name">Carla S.</div><div class="testi-role">Gerente de RH · Laticínio SC</div></div>
-                </div>
+            <div class="cred-num-card reveal reveal-delay-2">
+                <div class="big-num" data-count="500" data-suffix="+">500+</div>
+                <div class="big-label">Empresas atendidas</div>
             </div>
-            <div class="testi-card">
-                <div class="testi-stars">★★★★★</div>
-                <p class="testi-text">"Fornecedor anterior atrasou 60 dias e sumiu. Com a Equiproindi, pedido feito na segunda e entregue na sexta. Nunca mais mudei de fornecedor."</p>
-                <div class="testi-author">
-                    <div class="testi-avatar">M</div>
-                    <div><div class="testi-name">Marcos A.</div><div class="testi-role">Encarregado de Produção · Abatedouro MS</div></div>
-                </div>
+            <div class="cred-num-card reveal reveal-delay-3">
+                <div class="big-num" data-count="100" data-suffix="%">100%</div>
+                <div class="big-label">CA garantido em todos os EPIs</div>
             </div>
+            <div class="cred-num-card reveal reveal-delay-4">
+                <div class="big-num" data-count="48" data-suffix="h">48h</div>
+                <div class="big-label">Prazo máximo de despacho</div>
+            </div>
+        </div>
+
+        <p class="cred-sectors-title">Setores que atendemos</p>
+        <div class="cred-sectors">
+            <span class="sector-badge reveal reveal-delay-1"><i class="fas fa-drumstick-bite"></i> Frigoríficos</span>
+            <span class="sector-badge reveal reveal-delay-2"><i class="fas fa-cheese"></i> Laticínios</span>
+            <span class="sector-badge reveal reveal-delay-3"><i class="fas fa-industry"></i> Processadoras</span>
+            <span class="sector-badge reveal reveal-delay-4"><i class="fas fa-fish"></i> Abatedouros</span>
+            <span class="sector-badge reveal reveal-delay-1"><i class="fas fa-bread-slice"></i> Panificadoras</span>
+            <span class="sector-badge reveal reveal-delay-2"><i class="fas fa-seedling"></i> Agroindústrias</span>
+            <span class="sector-badge reveal reveal-delay-3"><i class="fas fa-flask"></i> Indústrias de Bebidas</span>
+            <span class="sector-badge reveal reveal-delay-4"><i class="fas fa-boxes"></i> Distribuidoras</span>
         </div>
     </div>
 </section>
