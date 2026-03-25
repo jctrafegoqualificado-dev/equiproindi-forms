@@ -772,14 +772,35 @@
 <script>
     /* ── FORM SUBMIT ── */
     document.getElementById('orcamento-form').addEventListener('submit', function(e) {
+        var form = this;
+        var whatsapp  = form.querySelector('[name="whatsapp"]').value;
+        var empresa   = form.querySelector('[name="empresa"]').value;
+        var produto   = form.querySelector('[name="produto"]').value;
+        var quantidade = form.querySelector('[name="quantidade"]').value;
+        var obs       = form.querySelector('[name="observacao"]') ? form.querySelector('[name="observacao"]').value : '';
+
         document.getElementById('btn-text').textContent = 'Enviando...';
         document.getElementById('btn-icon').className = 'fas fa-spinner fa-spin';
+
         setTimeout(function() {
-            document.getElementById('orcamento-form').style.display = 'none';
+            form.style.display = 'none';
             document.getElementById('form-success').style.display = 'block';
+
             if (window.dataLayer) {
                 window.dataLayer.push({ event: 'lead_form_submit', form: 'lp_alimenticio' });
             }
+
+            // Monta mensagem com dados do formulário
+            var msg = '🛡️ *Novo pedido de orçamento — EPI Setor Alimentício*\n\n';
+            msg += '📱 *WhatsApp:* ' + whatsapp + '\n';
+            if (empresa)    msg += '🏭 *Empresa:* '    + empresa   + '\n';
+            if (produto)    msg += '📦 *Produto:* '    + produto   + '\n';
+            if (quantidade) msg += '🔢 *Quantidade:* ' + quantidade + '\n';
+            if (obs)        msg += '📝 *Observação:* ' + obs        + '\n';
+            msg += '\n_Enviado via Landing Page Alimentício_';
+
+            var url = 'https://wa.me/5541995364479?text=' + encodeURIComponent(msg);
+            setTimeout(function() { window.open(url, '_blank'); }, 800);
         }, 900);
     });
 
