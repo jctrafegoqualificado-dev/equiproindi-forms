@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPI para Frigorífico e Setor Alimentício | Equiproindi</title>
+    <meta name="description" content="Fornecedor especializado em EPI e uniformes para frigoríficos, laticínios e processadoras. Entrega no prazo, CA garantido, fabricante direto. Orçamento em 24h.">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WCNMGMGJ');</script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary:     #254f70;
+            --primary-dark:#1a3a52;
+            --primary-mid: #417196;
+            --primary-light:#086892;
+            --white:       #ffffff;
+            --gray-50:     #f4f4f4;
+            --gray-100:    #eaeaea;
+            --gray-400:    #999999;
+            --gray-600:    #555555;
+            --gray-900:    #1a1a1a;
+            --wpp:         #25D366;
+            --wpp-dark:    #128C7E;
+            --accent:      #e8f4fb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Maven Pro', Lato, sans-serif; background: #fff; color: var(--gray-900); }
+        html { scroll-behavior: smooth; }
+
+        /* URGENCY BAR */
+        .urgency-bar {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .urgency-bar span { text-decoration: underline; cursor: pointer; }
+
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 3px solid var(--primary);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .logo img { height: 48px; object-fit: contain; }
+        .logo-fallback {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 20px; color: white;
+        }
+        .logo-name { font-weight: 900; font-size: 20px; color: var(--primary); line-height: 1.1; }
+        .logo-sub { font-size: 11px; color: var(--gray-400); }
+        .header-cta {
+            background: var(--wpp);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            display: flex; align-items: center; gap: 6px;
+            transition: background 0.2s;
+        }
+        .header-cta:hover { background: var(--wpp-dark); }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-mid) 100%);
+            color: white;
+            padding: 64px 24px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 400px; height: 100%;
+            background: rgba(255,255,255,0.02);
+            transform: skewX(-10deg) translateX(100px);
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #cce8f7;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .hero h1 .highlight {
+            color: #7ecef4;
+            position: relative;
+        }
+        .hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .hero-proof {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 36px;
+        }
+        .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+        }
+        .proof-item i { color: #7ecef4; font-size: 15px; flex-shrink: 0; }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--wpp);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 17px 34px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+            animation: pulse-wpp 2.5s infinite;
+        }
+        @keyframes pulse-wpp {
+            0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+            70% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+        }
+        .hero-cta:hover { background: var(--wpp-dark); transform: translateY(-2px); }
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            margin-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-stat {
+            flex: 1;
+            padding: 20px 0;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-stat:last-child { border-right: none; }
+        .hero-stat .num { font-size: 28px; font-weight: 900; color: #7ecef4; }
+        .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* FORM */
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            border-top: 4px solid var(--primary);
+        }
+        .form-card h2 { font-size: 19px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px; }
+        .form-card > p { font-size: 13px; color: var(--gray-400); margin-bottom: 20px; }
+        .form-group { margin-bottom: 13px; }
+        .form-group label {
+            display: block; font-size: 11px; font-weight: 700;
+            color: var(--gray-600); margin-bottom: 5px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 11px 13px;
+            border: 1.5px solid var(--gray-100);
+            border-radius: 8px;
+            font-family: 'Maven Pro', sans-serif;
+            font-size: 14px; color: var(--gray-900);
+            background: var(--gray-50);
+            transition: all 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37,79,112,0.1);
+        }
+        .form-group textarea { resize: none; height: 70px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-form {
+            width: 100%; background: var(--primary);
+            color: white; border: none;
+            padding: 15px; border-radius: 10px;
+            font-family: 'Maven Pro', sans-serif;
+            font-size: 15px; font-weight: 800;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center;
+            justify-content: center; gap: 8px;
+            margin-top: 6px;
+        }
+        .btn-form:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .form-guarantee {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--gray-400);
+            margin-top: 10px; justify-content: center;
+        }
+        #form-success {
+            display: none; text-align: center; padding: 20px 0;
+        }
+        #form-success .check-icon { font-size: 48px; color: var(--wpp); margin-bottom: 12px; }
+        #form-success h3 { font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        #form-success p { font-size: 13px; color: var(--gray-600); margin-bottom: 16px; }
+        .wpp-btn-small {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--wpp); color: white;
+            padding: 10px 20px; border-radius: 8px;
+            text-decoration: none; font-weight: 700; font-size: 13px;
+        }
+
+        /* PAIN */
+        .pain { background: var(--accent); border-top: 3px solid var(--primary-mid); padding: 56px 24px; }
+        .pain-inner { max-width: 960px; margin: 0 auto; }
+        .pain h2 { font-size: 28px; font-weight: 900; color: var(--primary-dark); text-align: center; margin-bottom: 36px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+        .pain-item {
+            background: white; border-radius: 12px;
+            padding: 24px; border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 12px rgba(37,79,112,0.07);
+        }
+        .pain-item .icon { font-size: 28px; margin-bottom: 10px; }
+        .pain-item h3 { font-size: 14px; font-weight: 800; color: var(--primary-dark); margin-bottom: 8px; }
+        .pain-item p { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+        /* SOLUTION */
+        .solution { padding: 72px 24px; background: white; }
+        .solution-inner { max-width: 1000px; margin: 0 auto; }
+        .section-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 11px; font-weight: 700;
+            padding: 4px 12px; border-radius: 20px;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .solution h2 { font-size: 34px; font-weight: 900; color: var(--primary-dark); margin-bottom: 12px; }
+        .solution > .solution-inner > p { font-size: 16px; color: var(--gray-600); margin-bottom: 48px; max-width: 580px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+        .benefit-card {
+            padding: 26px; border-radius: 14px;
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-100);
+            transition: all 0.2s;
+        }
+        .benefit-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(37,79,112,0.1);
+            transform: translateY(-2px);
+        }
+        .benefit-icon {
+            width: 50px; height: 50px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: var(--primary);
+            margin-bottom: 14px; transition: all 0.2s;
+        }
+        .benefit-card:hover .benefit-icon { background: var(--primary); color: white; }
+        .benefit-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--primary-dark); }
+        .benefit-card p { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+        /* PRODUCTS */
+        .products { background: var(--primary); padding: 64px 24px; color: white; }
+        .products-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+        .products h2 { font-size: 30px; font-weight: 900; margin-bottom: 12px; }
+        .products > .products-inner > p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 40px; }
+        .products-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 36px; }
+        .product-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px; padding: 22px 14px;
+            transition: all 0.2s; cursor: default;
+        }
+        .product-item:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+        .product-item i { font-size: 28px; margin-bottom: 10px; display: block; color: #7ecef4; }
+        .product-item span { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9); }
+
+        /* TESTIMONIALS */
+        .testimonials { padding: 72px 24px; background: var(--gray-50); }
+        .testimonials-inner { max-width: 1000px; margin: 0 auto; }
+        .testimonials h2 { font-size: 30px; font-weight: 900; text-align: center; color: var(--primary-dark); margin-bottom: 8px; }
+        .testimonials .sub { text-align: center; color: var(--gray-600); font-size: 14px; margin-bottom: 40px; }
+        .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+        .testi-card {
+            background: white; border-radius: 14px;
+            padding: 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--primary);
+        }
+        .testi-stars { color: #F59E0B; font-size: 13px; margin-bottom: 12px; }
+        .testi-text { font-size: 13px; color: var(--gray-600); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
+        .testi-author { display: flex; align-items: center; gap: 10px; }
+        .testi-avatar {
+            width: 40px; height: 40px;
+            background: var(--primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 15px;
+        }
+        .testi-name { font-size: 13px; font-weight: 700; color: var(--primary-dark); }
+        .testi-role { font-size: 11px; color: var(--gray-400); }
+
+        /* CTA FINAL */
+        .cta-final {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 72px 24px; text-align: center; color: white;
+        }
+        .cta-final h2 { font-size: 34px; font-weight: 900; margin-bottom: 14px; line-height: 1.2; }
+        .cta-final p { font-size: 17px; opacity: 0.8; margin-bottom: 36px; }
+        .cta-final a {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--wpp); color: white;
+            font-size: 16px; font-weight: 800;
+            padding: 17px 40px; border-radius: 10px;
+            text-decoration: none; transition: all 0.2s;
+            animation: pulse-wpp 2.5s infinite;
+        }
+        .cta-final a:hover { background: var(--wpp-dark); transform: translateY(-2px); }
+        .cta-sub { margin-top: 20px; font-size: 13px; opacity: 0.6; }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary-dark); color: rgba(255,255,255,0.5);
+            padding: 28px 24px; text-align: center; font-size: 12px; line-height: 2;
+        }
+        footer a { color: rgba(255,255,255,0.5); }
+
+        /* FLOAT WPP */
+        .float-wpp {
+            position: fixed; bottom: 24px; right: 24px;
+            background: var(--wpp); color: white;
+            width: 58px; height: 58px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            z-index: 999; animation: pulse-wpp 2.5s infinite;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 28px; }
+            .pain-grid, .benefits-grid, .testi-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: repeat(2,1fr); }
+            .form-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-wrap: wrap; }
+            .cta-final h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCNMGMGJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+    <i class="fas fa-exclamation-circle"></i>&nbsp;
+    Auditoria chegando? Garanta seu EPI com CA em dia &mdash;
+    <span onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">Solicite orçamento em 24h</span>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="logo-fallback">
+        <img src="https://images.tcdn.com.br/img/img_prod/1385948/1747852546_logo_equiproindi.jpeg.jpg" alt="Equiproindi" style="height:44px;object-fit:contain;" onerror="this.style.display='none';document.getElementById('logo-text').style.display='flex'">
+        <div id="logo-text" style="display:none;" class="logo-fallback">
+            <div class="logo-icon">E</div>
+            <div><div class="logo-name">EQUIPROINDI</div><div class="logo-sub">EPI · Uniformes · Confecção</div></div>
+        </div>
+    </div>
+    <a href="https://wa.me/5541995364479?text=Olá,%20vim%20pelo%20site%20e%20preciso%20de%20EPI%20para%20o%20setor%20alimentício." target="_blank" class="header-cta">
+        <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+    </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-badge"><i class="fas fa-award"></i> Especialista em Setor Alimentício</div>
+            <h1>Seu fornecedor de EPI <span class="highlight">sumiu depois do boleto?</span></h1>
+            <p>A Equiproindi fornece EPI certificado + uniforme personalizado para frigoríficos, laticínios e processadoras. Entrega no prazo. CA em dia. Fabricante direto, sem intermediário.</p>
+            <div class="hero-proof">
+                <div class="proof-item"><i class="fas fa-check-circle"></i> 21 anos fornecendo para o setor alimentício</div>
+                <div class="proof-item"><i class="fas fa-check-circle"></i> CA garantido em todos os EPIs</div>
+                <div class="proof-item"><i class="fas fa-check-circle"></i> EPI + Uniforme no mesmo pedido, mesmo prazo</div>
+                <div class="proof-item"><i class="fas fa-check-circle"></i> Entrega rastreada para todo o Brasil</div>
+            </div>
+            <a href="https://wa.me/5541995364479?text=Olá,%20preciso%20de%20EPI%20para%20setor%20alimentício.%20Pode%20me%20enviar%20um%20orçamento?" target="_blank" class="hero-cta">
+                <i class="fab fa-whatsapp" style="font-size:20px"></i>
+                Quero meu orçamento em 24h
+            </a>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="num">21</div><div class="label">Anos de mercado</div></div>
+                <div class="hero-stat"><div class="num">100%</div><div class="label">CA garantido</div></div>
+                <div class="hero-stat"><div class="num">1</div><div class="label">Fornecedor para tudo</div></div>
+                <div class="hero-stat"><div class="num">24h</div><div class="label">Resposta orçamento</div></div>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div id="form">
+            <div class="form-card">
+                <h2>Solicite seu orçamento</h2>
+                <p>Respondemos em até 24 horas úteis.</p>
+
+                <div id="form-success">
+                    <div class="check-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Orçamento recebido!</h3>
+                    <p>Nossa equipe entrará em contato em até 24h.<br>Ou fale agora pelo WhatsApp:</p>
+                    <a href="https://wa.me/5541995364479" target="_blank" class="wpp-btn-small">
+                        <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+                    </a>
+                </div>
+
+                <form id="orcamento-form" action="https://formspree.io/f/mreogbgd" method="POST">
+                    <input type="hidden" name="_subject" value="Novo Lead — EPI Setor Alimentício (LP)">
+                    <input type="hidden" name="origem" value="Landing Page — EPI Setor Alimentício">
+
+                    <div class="form-group">
+                        <label>WhatsApp <span style="color:#dc2626">*</span></label>
+                        <input type="tel" name="whatsapp" placeholder="(41) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" name="empresa" placeholder="Nome da empresa">
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Produto <span style="color:#dc2626">*</span></label>
+                            <select name="produto" required>
+                                <option value="">Selecione</option>
+                                <option>Avental frigorífico</option>
+                                <option>Bota PVC / frigorífico</option>
+                                <option>Luvas (nitrila / malha)</option>
+                                <option>Touca / proteção capilar</option>
+                                <option>EPI câmara fria</option>
+                                <option>Uniforme personalizado</option>
+                                <option>Kit EPI completo</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantidade</label>
+                            <select name="quantidade">
+                                <option value="">Selecione</option>
+                                <option>Até 20 unidades</option>
+                                <option>20 a 100 unidades</option>
+                                <option>100 a 500 unidades</option>
+                                <option>Acima de 500</option>
+                                <option>Contrato mensal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Observação (opcional)</label>
+                        <textarea name="observacao" placeholder="Ex: preciso de EPI com CA para auditoria, prazo urgente..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-form">
+                        <span id="btn-text">Enviar e Receber Orçamento</span>
+                        <i id="btn-icon" class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="form-guarantee">
+                        <i class="fas fa-lock"></i> Seus dados são confidenciais. Sem spam.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DOR -->
+<section class="pain">
+    <div class="pain-inner">
+        <h2>Você já passou por alguma dessas situações?</h2>
+        <div class="pain-grid">
+            <div class="pain-item">
+                <div class="icon">😤</div>
+                <h3>Fornecedor sumiu após o pagamento</h3>
+                <p>Boleto pago, entrega atrasada, telefone não atende. Linha de produção em risco com auditoria chegando.</p>
+            </div>
+            <div class="pain-item">
+                <div class="icon">📋</div>
+                <h3>EPI sem CA válido reprovado em auditoria</h3>
+                <p>O MAPA ou MTE aparece, o EPI não tem Certificado de Aprovação válido. Multa, embargo e retrabalho.</p>
+            </div>
+            <div class="pain-item">
+                <div class="icon">🔄</div>
+                <h3>3 fornecedores para resolver o que 1 deveria</h3>
+                <p>Um para EPI, outro para uniforme, outro para confecção. Três prazos, três NFs, três chances de atraso.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOLUÇÃO -->
+<section class="solution">
+    <div class="solution-inner">
+        <div class="section-tag">A solução Equiproindi</div>
+        <h2>Um fornecedor.<br>Tudo resolvido.</h2>
+        <p>EPI com CA + Uniforme + Confecção no mesmo pedido, mesmo prazo, mesma nota fiscal. Fabricante direto, sem intermediário.</p>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-certificate"></i></div>
+                <h3>CA Garantido em Todos os EPIs</h3>
+                <p>Todos os equipamentos têm Certificado de Aprovação válido. Auditoria do MAPA ou MTE sem surpresa.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-truck"></i></div>
+                <h3>Entrega no Prazo para Todo Brasil</h3>
+                <p>Rastreamento em tempo real, despacho em até 48h após confirmação. De Curitiba para todo o Brasil.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>EPI + Uniforme no Mesmo Pedido</h3>
+                <p>Um pedido, uma NF, um prazo, um responsável. Fim da burocracia de múltiplos fornecedores.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Especialistas no Setor Alimentício</h3>
+                <p>21 anos fornecendo para frigoríficos, laticínios e processadoras. Conhecemos as normas do seu setor.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-industry"></i></div>
+                <h3>Fabricante Direto — Sem Intermediário</h3>
+                <p>Preço de fábrica, qualidade controlada na origem. Você compra direto de quem produz e importa.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Reposição Recorrente Programada</h3>
+                <p>Nunca fique sem EPI. Monte um plano de reposição mensal ou trimestral e esqueça o problema.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="products">
+    <div class="products-inner">
+        <div class="section-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8)">O que fornecemos</div>
+        <h2>EPI completo para o setor alimentício</h2>
+        <p>Do avental da câmara fria ao uniforme personalizado com bordado. Tudo no mesmo pedido.</p>
+        <div class="products-grid">
+            <div class="product-item"><i class="fas fa-mitten"></i><span>Luvas de Proteção</span></div>
+            <div class="product-item"><i class="fas fa-user-shield"></i><span>Aventais Frigorífico</span></div>
+            <div class="product-item"><i class="fas fa-shoe-prints"></i><span>Botas PVC e Frigorífico</span></div>
+            <div class="product-item"><i class="fas fa-hard-hat"></i><span>Capacetes e Toucas</span></div>
+            <div class="product-item"><i class="fas fa-snowflake"></i><span>EPI Câmara Fria</span></div>
+            <div class="product-item"><i class="fas fa-tshirt"></i><span>Uniformes Personalizados</span></div>
+            <div class="product-item"><i class="fas fa-cut"></i><span>Confecção sob Medida</span></div>
+            <div class="product-item"><i class="fas fa-box"></i><span>Kits EPI Completos</span></div>
+        </div>
+        <a href="https://wa.me/5541995364479?text=Olá,%20preciso%20de%20orçamento%20de%20EPI%20para%20setor%20alimentício." target="_blank" class="hero-cta" style="font-size:14px;padding:14px 28px;">
+            <i class="fab fa-whatsapp" style="font-size:18px"></i>
+            Ver catálogo completo no WhatsApp
+        </a>
+    </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+    <div class="testimonials-inner">
+        <h2>O que dizem nossos clientes</h2>
+        <p class="sub">Empresas do setor alimentício que confiam na Equiproindi</p>
+        <div class="testi-grid">
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Tivemos uma auditoria do MAPA com 15 dias de antecedência. A Equiproindi entregou todo o EPI com CA em dia antes do prazo. Salvou nossa operação."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">R</div>
+                    <div><div class="testi-name">Roberto M.</div><div class="testi-role">Gerente de Segurança · Frigorífico PR</div></div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Antes usava 3 fornecedores diferentes para EPI, uniforme e bordado. Com a Equiproindi resolvo tudo em um pedido. Economizo tempo e dinheiro."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">C</div>
+                    <div><div class="testi-name">Carla S.</div><div class="testi-role">Gerente de RH · Laticínio SC</div></div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Fornecedor anterior atrasou 60 dias e sumiu. Com a Equiproindi, pedido feito na segunda e entregue na sexta. Nunca mais mudei de fornecedor."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">M</div>
+                    <div><div class="testi-name">Marcos A.</div><div class="testi-role">Encarregado de Produção · Abatedouro MS</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+    <h2>Próxima auditoria está chegando.<br>Não arrisque.</h2>
+    <p>Solicite seu orçamento agora. Respondemos em até 24 horas.</p>
+    <a href="https://wa.me/5541995364479?text=Olá,%20preciso%20de%20EPI%20para%20setor%20alimentício.%20Pode%20me%20enviar%20um%20orçamento?" target="_blank">
+        <i class="fab fa-whatsapp" style="font-size:20px;color:var(--wpp)"></i>
+        Falar agora no WhatsApp
+    </a>
+    <p class="cta-sub">21 anos de mercado · CA garantido · Entrega rastreada · Fabricante direto</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <strong style="color:rgba(255,255,255,0.7)">EQUIPROINDI</strong> — EPI, Uniformes e Confecção Profissional<br>
+    Curitiba/PR · Rua Christiano Schmitz · (41) 3346-8136 · <a href="mailto:atendimento@equiproindi.com.br">atendimento@equiproindi.com.br</a><br><br>
+    &copy; 2025 Equiproindi. Todos os direitos reservados.
+</footer>
+
+<!-- FLOATING WPP -->
+<a href="https://wa.me/5541995364479?text=Olá,%20vim%20pelo%20site%20e%20preciso%20de%20EPI%20para%20setor%20alimentício." target="_blank" class="float-wpp" title="Falar no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    document.getElementById('orcamento-form').addEventListener('submit', function(e) {
+        document.getElementById('btn-text').textContent = 'Enviando...';
+        document.getElementById('btn-icon').className = 'fas fa-spinner fa-spin';
+        setTimeout(function() {
+            document.getElementById('orcamento-form').style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+            if (window.dataLayer) {
+                window.dataLayer.push({ event: 'lead_form_submit', form: 'lp_alimenticio' });
+            }
+        }, 900);
+    });
+</script>
+
+</body>
+</html>
