@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Negócio — Equiproindi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #1E293B; }
+
+        .header {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .header .badge {
+            display: inline-block;
+            background: #DC2626;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .header p { color: #94A3B8; font-size: 14px; }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+
+        .intro-box {
+            background: white;
+            border-left: 4px solid #DC2626;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .intro-box h2 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .intro-box p { font-size: 14px; color: #64748B; line-height: 1.6; }
+
+        .block { margin-bottom: 40px; }
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #F1F5F9;
+        }
+        .block-number {
+            width: 36px; height: 36px;
+            background: #DC2626; color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 14px; flex-shrink: 0;
+        }
+        .block-title { font-size: 17px; font-weight: 700; }
+        .block-subtitle { font-size: 12px; color: #64748B; margin-top: 2px; }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border: 1px solid #E2E8F0;
+            transition: border-color 0.2s;
+        }
+        .question-card:focus-within { border-color: #DC2626; }
+
+        .question-num {
+            font-size: 11px; font-weight: 700;
+            color: #DC2626; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 6px;
+        }
+        .question-text {
+            font-size: 15px; font-weight: 600;
+            color: #1E293B; margin-bottom: 6px; line-height: 1.4;
+        }
+        .question-why {
+            font-size: 12px; color: #94A3B8;
+            line-height: 1.5; margin-bottom: 12px;
+        }
+
+        .answer-field {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #1E293B;
+            resize: vertical;
+            min-height: 56px;
+            background: #F8FAFC;
+            transition: all 0.2s;
+        }
+        .answer-field:focus {
+            outline: none;
+            border-color: #DC2626;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
+        }
+        .answer-field::placeholder { color: #CBD5E1; }
+
+        .submit-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            border: 2px solid #E2E8F0;
+            margin-top: 8px;
+        }
+        .submit-section h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+        .submit-section p { font-size: 13px; color: #64748B; margin-bottom: 24px; line-height: 1.6; }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #DC2626;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-submit:hover { background: #B91C1C; transform: translateY(-1px); }
+        .btn-submit:active { transform: translateY(0); }
+
+        .privacy-note {
+            font-size: 11px;
+            color: #CBD5E1;
+            margin-top: 12px;
+        }
+
+        /* Tela de agradecimento */
+        #thank-you {
+            display: none;
+            text-align: center;
+            padding: 80px 24px;
+        }
+        #thank-you .check {
+            width: 72px; height: 72px;
+            background: #DCFCE7;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+        }
+        #thank-you h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
+        #thank-you p { font-size: 15px; color: #64748B; line-height: 1.6; }
+
+        .required-star { color: #DC2626; }
+
+        .progress-bar {
+            height: 4px;
+            background: #F1F5F9;
+            border-radius: 2px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #DC2626;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="badge">Diagnóstico de Negócio</div>
+    <h1>Vamos entender melhor a Equiproindi</h1>
+    <p>Responda com honestidade — não há resposta certa ou errada.<br>Suas respostas guiam todo o planejamento de marketing.</p>
+</div>
+
+<div class="container">
+
+    <!-- Tela de agradecimento (oculta inicialmente) -->
+    <div id="thank-you">
+        <div class="check">✅</div>
+        <h2>Respostas enviadas!</h2>
+        <p>Recebemos o seu diagnóstico.<br>Em breve entraremos em contato com o plano de ação personalizado para a Equiproindi.</p>
+    </div>
+
+    <!-- Formulário principal -->
+    <div id="form-section">
+
+        <div class="intro-box">
+            <h2>Por que respondemos isso?</h2>
+            <p>Antes de otimizar qualquer campanha, precisamos entender os números reais do negócio. Cada pergunta foi escolhida porque impacta diretamente uma decisão estratégica. <strong>Leva menos de 10 minutos.</strong></p>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+        <form id="diagnostico-form"
+              action="https://formspree.io/f/mreogbgd"
+              method="POST">
+
+            <!-- Campo oculto para identificar o cliente -->
+            <input type="hidden" name="_subject" value="Diagnóstico Equiproindi — Formulário Respondido">
+            <input type="hidden" name="_replyto" value="">
+            <input type="hidden" name="cliente" value="Equiproindi">
+            <input type="hidden" name="_next" value="">
+
+            <!-- BLOCO 1 -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-number">1</div>
+                    <div>
+                        <div class="block-title">Financeiro</div>
+                        <div class="block-subtitle">Define se o investimento em marketing está fazendo sentido</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 1 — Crítico</div>
+                    <div class="question-text">Qual é o faturamento médio mensal dos últimos 3 meses? <span class="required-star">*</span></div>
+                    <div class="question-why">Esse número ancora toda a análise e define o quanto faz sentido investir em marketing.</div>
+                    <textarea class="answer-field" name="faturamento_mensal" placeholder="Ex: R$ 45.000/mês em média" required></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 2 — Crítico</div>
+                    <div class="question-text">Qual é a margem bruta aproximada? Após pagar produto, produção e fornecedores — quanto sobra em %? <span class="required-star">*</span></div>
+                    <div class="question-why">Define o teto de quanto podemos gastar para adquirir um cliente sem ter prejuízo.</div>
+                    <textarea class="answer-field" name="margem_bruta" placeholder="Ex: Sobra cerca de 35% depois de pagar o fornecedor e a produção" required></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 3 — Crítico</div>
+                    <div class="question-text">Qual é o valor médio de uma venda para empresa (B2B)? E de uma venda para pessoa física (B2C)? <span class="required-star">*</span></div>
+                    <div class="question-why">O Google Ads gastou R$748 por conversão em uma campanha. Esse número define se está caro ou barato.</div>
+                    <textarea class="answer-field" name="ticket_medio" placeholder="Ex: Empresa — R$3.000 por pedido / Pessoa física — R$180 por pedido" required></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 4</div>
+                    <div class="question-text">Quantos pedidos ou vendas você fecha por mês no total?</div>
+                    <div class="question-why">Completa o triângulo básico: faturamento ÷ pedidos = ticket médio real.</div>
+                    <textarea class="answer-field" name="pedidos_mes" placeholder="Ex: Umas 20 vendas para empresa e 50 pelo site por mês"></textarea>
+                </div>
+            </div>
+
+            <!-- BLOCO 2 -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-number">2</div>
+                    <div>
+                        <div class="block-title">Pipeline e Vendas</div>
+                        <div class="block-subtitle">Identifica onde os clientes em potencial estão sendo perdidos</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 5 — Crítico</div>
+                    <div class="question-text">De cada 10 orçamentos que você envia, quantos viram pedido? Quanto tempo leva do primeiro contato até fechar? <span class="required-star">*</span></div>
+                    <div class="question-why">Esta é a pergunta mais importante. A resposta define se o problema é falta de leads ou falta de conversão.</div>
+                    <textarea class="answer-field" name="taxa_fechamento" placeholder="Ex: De 10 orçamentos, 3 fecham. Leva uns 2 semanas até fechar." required></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 6 — Crítico</div>
+                    <div class="question-text">Quem faz o atendimento e as vendas hoje? Você mesmo, ou tem equipe? <span class="required-star">*</span></div>
+                    <div class="question-why">Não adianta triplicar os leads se não há capacidade de atender. Esse dado define o teto de escala atual.</div>
+                    <textarea class="answer-field" name="equipe_vendas" placeholder="Ex: Só eu mesmo respondo o WhatsApp e faço os orçamentos" required></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 7 — Crítico</div>
+                    <div class="question-text">Quando alguém pede orçamento e não compra na hora, o que acontece? Tem algum acompanhamento depois?</div>
+                    <div class="question-why">A maioria dos negócios perde 70-80% dos leads por falta de follow-up. Precisamos saber se isso acontece aqui.</div>
+                    <textarea class="answer-field" name="followup" placeholder="Ex: Mando uma mensagem no WhatsApp, se não responder não insisto mais"></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 8</div>
+                    <div class="question-text">Quantas empresas compraram de você nos últimos 12 meses?</div>
+                    <div class="question-why">Clientes que já compraram são o ativo mais fácil de reativar. Reativar é mais barato do que adquirir.</div>
+                    <textarea class="answer-field" name="clientes_b2b_ativos" placeholder="Ex: Umas 15 empresas compraram no último ano"></textarea>
+                </div>
+            </div>
+
+            <!-- BLOCO 3 -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-number">3</div>
+                    <div>
+                        <div class="block-title">Operação e Mercado</div>
+                        <div class="block-subtitle">Contexto que define o posicionamento e a estratégia</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 9</div>
+                    <div class="question-text">Tem alguma empresa grande que atende com pedido ou contrato recorrente todo ano?</div>
+                    <div class="question-why">Contratos anuais B2B mudam completamente a estratégia — o foco seria replicar esse modelo.</div>
+                    <textarea class="answer-field" name="contratos_recorrentes" placeholder="Ex: Sim, fornecemos uniformes para uma construtora com 80 funcionários todo ano"></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 10</div>
+                    <div class="question-text">Tem meses que vendem muito mais? Quando é a alta e a baixa do negócio?</div>
+                    <div class="question-why">Define quando concentrar investimento em anúncios e quando economizar.</div>
+                    <textarea class="answer-field" name="sazonalidade" placeholder="Ex: Janeiro e fevereiro são os mais fortes. Julho é o mais fraco."></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 11</div>
+                    <div class="question-text">Quais são os 2 ou 3 concorrentes que mais te tiram clientes em Curitiba?</div>
+                    <div class="question-why">Permite entender o posicionamento e onde você é percebido como diferente pelo cliente.</div>
+                    <textarea class="answer-field" name="concorrentes" placeholder="Ex: Tem uma loja no Boqueirão mais barata, e uma empresa de SP que entrega pelo Correios"></textarea>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-num">Pergunta 12 — Técnico</div>
+                    <div class="question-text">Você tem acesso ao painel do Google Merchant Center? Os produtos aparecem com algum erro?</div>
+                    <div class="question-why">Erros no Merchant Center degradam diretamente a campanha que gasta R$2.992/mês. Solução rápida se identificada.</div>
+                    <textarea class="answer-field" name="merchant_center" placeholder="Ex: Não sei o que é isso / Tenho acesso mas nunca mexi / Vi erros mas não sei o que significa"></textarea>
+                </div>
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="submit-section">
+                <h3>Pronto para enviar?</h3>
+                <p>Suas respostas serão enviadas diretamente para nossa equipe.<br>Entraremos em contato com o plano de ação em até 24 horas.</p>
+                <button type="submit" class="btn-submit">
+                    Enviar Diagnóstico &rarr;
+                </button>
+                <p class="privacy-note">🔒 Suas respostas são confidenciais e usadas apenas para planejamento estratégico.</p>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    // Barra de progresso
+    const fields = document.querySelectorAll('.answer-field');
+    function updateProgress() {
+        let filled = 0;
+        fields.forEach(f => { if (f.value.trim() !== '') filled++; });
+        document.getElementById('progress').style.width = (filled / fields.length * 100) + '%';
+    }
+    fields.forEach(f => f.addEventListener('input', updateProgress));
+
+    // Intercept form submit para mostrar thank you localmente
+    // O Formspree vai redirecionar mas como fallback mostramos aqui
+    document.getElementById('diagnostico-form').addEventListener('submit', function(e) {
+        // Deixa o Formspree processar normalmente
+        // Se quiser redirecionar após submit, defina o campo _next acima
+        setTimeout(function() {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('thank-you').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 800);
+    });
+</script>
+
+</body>
+</html>
