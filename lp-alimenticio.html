@@ -137,6 +137,69 @@
             color: #7ecef4;
             position: relative;
         }
+
+        /* TYPED SECTOR */
+        .typed-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 6px 14px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+        }
+        .typed-label { color: rgba(255,255,255,0.55); font-weight: 500; }
+        .typed-word {
+            color: #7ecef4;
+            display: inline-block;
+            min-width: 130px;
+        }
+        .typed-cursor {
+            color: #7ecef4;
+            animation: blink 0.75s step-end infinite;
+            font-weight: 300;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* PARTICLES */
+        .hero-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(126,206,244,0.18);
+            animation: float-particle linear infinite;
+        }
+        @keyframes float-particle {
+            0%   { transform: translateY(0) scale(1); opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 0.6; }
+            100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+        }
         .hero p {
             font-size: 17px;
             color: rgba(255,255,255,0.78);
@@ -425,8 +488,13 @@
 
 <!-- HERO -->
 <section class="hero">
+    <div class="hero-particles" id="hero-particles"></div>
     <div class="hero-inner">
         <div>
+            <div class="typed-wrap">
+                <span class="typed-label">Fornecendo para</span>
+                <span class="typed-word" id="typed-word"></span><span class="typed-cursor">|</span>
+            </div>
             <div class="hero-badge"><i class="fas fa-award"></i> Especialista em Setor Alimentício</div>
             <h1>EPI com CA garantido, <span class="highlight">entregue no prazo</span> — sem surpresas</h1>
             <p>A Equiproindi fornece EPI certificado + uniforme personalizado para frigoríficos, laticínios e processadoras. Entrega no prazo. CA em dia. Fabricante direto, sem intermediário.</p>
@@ -441,10 +509,10 @@
                 Quero meu orçamento em 24h
             </a>
             <div class="hero-stats">
-                <div class="hero-stat"><div class="num">21</div><div class="label">Anos de mercado</div></div>
-                <div class="hero-stat"><div class="num">100%</div><div class="label">CA garantido</div></div>
-                <div class="hero-stat"><div class="num">1</div><div class="label">Fornecedor para tudo</div></div>
-                <div class="hero-stat"><div class="num">24h</div><div class="label">Resposta orçamento</div></div>
+                <div class="hero-stat"><div class="num" data-count="21" data-suffix="">21</div><div class="label">Anos de mercado</div></div>
+                <div class="hero-stat"><div class="num" data-count="100" data-suffix="%">100%</div><div class="label">CA garantido</div></div>
+                <div class="hero-stat"><div class="num" data-count="1" data-suffix="">1</div><div class="label">Fornecedor para tudo</div></div>
+                <div class="hero-stat"><div class="num" data-count="24" data-suffix="h">24h</div><div class="label">Resposta orçamento</div></div>
             </div>
         </div>
 
@@ -524,17 +592,17 @@
     <div class="pain-inner">
         <h2>Você já passou por alguma dessas situações?</h2>
         <div class="pain-grid">
-            <div class="pain-item">
+            <div class="pain-item reveal reveal-delay-1">
                 <div class="icon">😤</div>
                 <h3>Fornecedor sumiu após o pagamento</h3>
                 <p>Boleto pago, entrega atrasada, telefone não atende. Linha de produção em risco com auditoria chegando.</p>
             </div>
-            <div class="pain-item">
+            <div class="pain-item reveal reveal-delay-2">
                 <div class="icon">📋</div>
                 <h3>EPI sem CA válido reprovado em auditoria</h3>
                 <p>O MAPA ou MTE aparece, o EPI não tem Certificado de Aprovação válido. Multa, embargo e retrabalho.</p>
             </div>
-            <div class="pain-item">
+            <div class="pain-item reveal reveal-delay-3">
                 <div class="icon">🔄</div>
                 <h3>3 fornecedores para resolver o que 1 deveria</h3>
                 <p>Um para EPI, outro para uniforme, outro para confecção. Três prazos, três NFs, três chances de atraso.</p>
@@ -555,22 +623,22 @@
                 <h3>CA Garantido em Todos os EPIs</h3>
                 <p>Todos os equipamentos têm Certificado de Aprovação válido. Auditoria do MAPA ou MTE sem surpresa.</p>
             </div>
-            <div class="benefit-card">
+            <div class="benefit-card reveal reveal-delay-1">
                 <div class="benefit-icon"><i class="fas fa-truck"></i></div>
                 <h3>Entrega no Prazo para Todo Brasil</h3>
                 <p>Rastreamento em tempo real, despacho em até 48h após confirmação. De Curitiba para todo o Brasil.</p>
             </div>
-            <div class="benefit-card">
+            <div class="benefit-card reveal reveal-delay-2">
                 <div class="benefit-icon"><i class="fas fa-layer-group"></i></div>
                 <h3>EPI + Uniforme no Mesmo Pedido</h3>
                 <p>Um pedido, uma NF, um prazo, um responsável. Fim da burocracia de múltiplos fornecedores.</p>
             </div>
-            <div class="benefit-card">
+            <div class="benefit-card reveal reveal-delay-3">
                 <div class="benefit-icon"><i class="fas fa-utensils"></i></div>
                 <h3>Especialistas no Setor Alimentício</h3>
                 <p>21 anos fornecendo para frigoríficos, laticínios e processadoras. Conhecemos as normas do seu setor.</p>
             </div>
-            <div class="benefit-card">
+            <div class="benefit-card reveal reveal-delay-4">
                 <div class="benefit-icon"><i class="fas fa-industry"></i></div>
                 <h3>Fabricante Direto — Sem Intermediário</h3>
                 <p>Preço de fábrica, qualidade controlada na origem. Você compra direto de quem produz e importa.</p>
@@ -665,6 +733,7 @@
 </a>
 
 <script>
+    /* ── FORM SUBMIT ── */
     document.getElementById('orcamento-form').addEventListener('submit', function(e) {
         document.getElementById('btn-text').textContent = 'Enviando...';
         document.getElementById('btn-icon').className = 'fas fa-spinner fa-spin';
@@ -675,6 +744,99 @@
                 window.dataLayer.push({ event: 'lead_form_submit', form: 'lp_alimenticio' });
             }
         }, 900);
+    });
+
+    /* ── PARTICLES ── */
+    (function() {
+        var container = document.getElementById('hero-particles');
+        var colors = ['rgba(126,206,244,0.2)', 'rgba(255,255,255,0.1)', 'rgba(65,113,150,0.3)'];
+        for (var i = 0; i < 22; i++) {
+            var p = document.createElement('span');
+            p.className = 'particle';
+            var size = Math.random() * 10 + 4;
+            var left = Math.random() * 100;
+            var delay = Math.random() * 12;
+            var duration = Math.random() * 14 + 10;
+            p.style.cssText = [
+                'width:' + size + 'px',
+                'height:' + size + 'px',
+                'left:' + left + '%',
+                'bottom:-' + size + 'px',
+                'background:' + colors[Math.floor(Math.random() * colors.length)],
+                'animation-duration:' + duration + 's',
+                'animation-delay:' + delay + 's'
+            ].join(';');
+            container.appendChild(p);
+        }
+    })();
+
+    /* ── TYPED WORD ROTATION ── */
+    (function() {
+        var words = ['frigoríficos', 'laticínios', 'processadoras', 'abatedouros', 'indústrias alimentícias'];
+        var el = document.getElementById('typed-word');
+        var idx = 0, charIdx = 0, deleting = false, pause = 0;
+
+        function tick() {
+            if (pause > 0) { pause--; setTimeout(tick, 80); return; }
+            var current = words[idx];
+            if (!deleting) {
+                el.textContent = current.slice(0, ++charIdx);
+                if (charIdx === current.length) { deleting = true; pause = 22; }
+                setTimeout(tick, 95);
+            } else {
+                el.textContent = current.slice(0, --charIdx);
+                if (charIdx === 0) {
+                    deleting = false;
+                    idx = (idx + 1) % words.length;
+                    pause = 5;
+                }
+                setTimeout(tick, 55);
+            }
+        }
+        setTimeout(tick, 600);
+    })();
+
+    /* ── COUNTER ANIMATION ── */
+    function animateCounter(el) {
+        var target = parseInt(el.getAttribute('data-count'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var start = 0, duration = 1400;
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(start + (target - start) * eased) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    /* ── INTERSECTION OBSERVER (reveal + counters) ── */
+    var revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) {
+        revealObserver.observe(el);
+    });
+
+    var counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.num[data-count]').forEach(function(el) {
+        counterObserver.observe(el);
     });
 </script>
 
