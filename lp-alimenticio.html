@@ -90,7 +90,7 @@
         .hero {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-mid) 100%);
             color: white;
-            padding: 64px 24px 0;
+            padding: 64px 24px 48px;
             overflow: hidden;
             position: relative;
         }
@@ -622,8 +622,8 @@
     </div>
 </section>
 
-<!-- CARROSSEL HERO -->
-<section class="hc-section">
+<!-- CARROSSEL HERO (movido para após credibilidade) -->
+<section class="hc-section" style="display:none" id="hcSectionOriginal">
   <div class="hc-wrap" id="hcWrap">
 
     <div class="hc-slide active">
@@ -719,41 +719,41 @@
 .hc-pre {
   font-size: 12px;
   font-weight: 700;
-  color: #1a9fff;
+  color: #7ecef4;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 14px;
 }
 .hc-title {
-  font-size: clamp(26px, 3.5vw, 44px);
+  font-size: clamp(18px, 2.5vw, 30px);
   font-weight: 900;
   color: #fff;
-  line-height: 1.1;
-  margin-bottom: 16px;
+  line-height: 1.15;
+  margin-bottom: 14px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .hc-sub {
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(255,255,255,0.85);
   line-height: 1.5;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   max-width: 400px;
 }
 .hc-btn {
   display: inline-block;
-  background: #1a73e8;
+  background: var(--primary);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
-  padding: 14px 28px;
+  padding: 13px 26px;
   border-radius: 8px;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 4px 16px rgba(26,115,232,0.4);
+  box-shadow: 0 4px 16px rgba(37,79,112,0.4);
 }
-.hc-btn:hover { background: #1558b0; transform: translateY(-2px); }
+.hc-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
 .hc-arrow {
   position: absolute;
   top: 50%;
@@ -774,7 +774,7 @@
   backdrop-filter: blur(4px);
   transition: background 0.2s;
 }
-.hc-arrow:hover { background: #1a73e8; }
+.hc-arrow:hover { background: var(--primary); }
 .hc-prev { left: 16px; }
 .hc-next { right: 16px; }
 .hc-dots {
@@ -795,11 +795,15 @@
   display: inline-block;
 }
 .hc-dot.active { background: #fff; transform: scale(1.3); }
-@media(max-width:700px){
-  .hc-slide img { height: 300px; }
+@media(max-width:900px){
+  .hc-slide img { height: 340px; }
   .hc-title { font-size: 22px; }
   .hc-sub { font-size: 13px; }
-  .hc-content { left: 5%; max-width: 85%; }
+  .hc-content { left: 5%; max-width: 80%; }
+}
+@media(max-width:480px){
+  .hc-slide img { height: 260px; }
+  .hc-title { font-size: 18px; }
 }
 </style>
 
@@ -955,12 +959,136 @@
     </div>
 </section>
 
+<!-- CARROSSEL — posição correta: após credibilidade -->
+<section class="hc-section">
+  <div class="hc-wrap" id="hcWrap">
+    <div class="hc-slide active">
+      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico">
+      <div class="hc-overlay"></div>
+      <div class="hc-content">
+        <p class="hc-pre">Setor Alimentício &amp; Frigoríficos</p>
+        <h2 class="hc-title">EPI COMPLETO<br>PARA LINHA DE<br>PRODUÇÃO</h2>
+        <p class="hc-sub">Fornecimento direto do fabricante com CA garantido e entrega rastreada.</p>
+        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="hc-slide">
+      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício">
+      <div class="hc-overlay"></div>
+      <div class="hc-content">
+        <p class="hc-pre">Conformidade e Segurança</p>
+        <h2 class="hc-title">PROTEÇÃO<br>CERTIFICADA<br>PARA O SETOR</h2>
+        <p class="hc-sub">Produtos aprovados para auditorias MAPA e MTE. Sem surpresas na fiscalização.</p>
+        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="hc-slide">
+      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img3.png" alt="EPIs indústria alimentícia">
+      <div class="hc-overlay"></div>
+      <div class="hc-content">
+        <p class="hc-pre">21 Anos de Mercado</p>
+        <h2 class="hc-title">UM FORNECEDOR<br>PARA TUDO<br>QUE VOCÊ PRECISA</h2>
+        <p class="hc-sub">EPI, uniforme e confecção. Um pedido, uma nota, uma entrega.</p>
+        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="hc-slide">
+      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img4.png" alt="Uniformes e EPIs frigorífico">
+      <div class="hc-overlay"></div>
+      <div class="hc-content">
+        <p class="hc-pre">Entrega Rastreada</p>
+        <h2 class="hc-title">UNIFORMES E<br>EQUIPAMENTOS<br>HOMOLOGADOS</h2>
+        <p class="hc-sub">Resposta de orçamento em até 24h. Atendimento direto com o fabricante.</p>
+        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
+      </div>
+    </div>
+  </div>
+  <button class="hc-arrow hc-prev" id="hcPrev">&#8249;</button>
+  <button class="hc-arrow hc-next" id="hcNext">&#8250;</button>
+  <div class="hc-dots" id="hcDots">
+    <span class="hc-dot active"></span>
+    <span class="hc-dot"></span>
+    <span class="hc-dot"></span>
+    <span class="hc-dot"></span>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-tag" style="margin:0 auto 16px;">O que nossos clientes dizem</div>
+    <h2 class="testi-title">Quem usa, recomenda</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Fornecedor mais confiável que já tivemos. CA sempre válido, entrega no prazo e atendimento rápido. Zero problemas nas últimas três auditorias do MAPA."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RO</div>
+          <div>
+            <strong>Ricardo O.</strong>
+            <span>Supervisor de Segurança · Frigorífico · PR</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Resolvemos tudo com um fornecedor só: avental, bota, luva e uniforme. Antes usávamos três empresas diferentes. Economizamos tempo e dinheiro."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MS</div>
+          <div>
+            <strong>Mariana S.</strong>
+            <span>Gestora de Compras · Laticínio · SC</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Auditoria surpresa do MTE e estávamos 100% regularizados. Toda a equipe com EPI certificado e CA em dia. Tranquilidade que não tem preço."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">FP</div>
+          <div>
+            <strong>Fernando P.</strong>
+            <span>Gerente Industrial · Abatedouro · RS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.testimonials { background: #fff; padding: 72px 24px; }
+.testimonials-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+.testi-title { font-size: 28px; font-weight: 900; color: var(--primary-dark); margin-bottom: 40px; }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; text-align: left; }
+.testi-card {
+  background: var(--gray-50);
+  border-radius: 14px;
+  padding: 28px;
+  border-left: 4px solid var(--primary);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.testi-stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; }
+.testi-quote { font-size: 14px; color: var(--gray-600); line-height: 1.7; flex: 1; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.testi-author strong { display: block; font-size: 13px; font-weight: 700; color: var(--primary-dark); }
+.testi-author span { font-size: 11px; color: var(--gray-400); }
+@media(max-width:900px){ .testi-grid { grid-template-columns: 1fr; } }
+</style>
+
 <!-- CTA FINAL -->
 <section class="cta-final">
     <h2>Próxima auditoria está chegando.<br>Não arrisque.</h2>
     <p>Solicite seu orçamento agora. Respondemos em até 24 horas.</p>
     <a href="https://wa.me/554133468136?text=Olá,%20preciso%20de%20EPI%20para%20setor%20alimentício.%20Pode%20me%20enviar%20um%20orçamento?" target="_blank">
-        <i class="fab fa-whatsapp" style="font-size:20px;color:var(--wpp)"></i>
+        <i class="fab fa-whatsapp" style="font-size:20px"></i>
         Falar agora no WhatsApp
     </a>
     <p class="cta-sub">21 anos de mercado · CA garantido · Entrega rastreada · Fabricante direto</p>
