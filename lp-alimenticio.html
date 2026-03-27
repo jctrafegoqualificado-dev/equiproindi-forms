@@ -622,49 +622,28 @@
     </div>
 </section>
 
-<!-- CARROSSEL -->
+<!-- CARROSSEL INFINITO -->
 <section class="carousel-section">
   <div class="carousel-label">Soluções para quem trabalha com segurança alimentar</div>
-  <div class="carousel-track-wrap">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico">
-        <div class="carousel-caption">EPI completo para linha de produção em frigorífico</div>
-      </div>
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício">
-        <div class="carousel-caption">Proteção certificada para o setor alimentício</div>
-      </div>
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img3.png" alt="EPIs indústria alimentícia">
-        <div class="carousel-caption">EPIs para indústria alimentícia — segurança e conformidade</div>
-      </div>
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img4.png" alt="Uniformes e EPIs frigorífico">
-        <div class="carousel-caption">Uniformes e equipamentos homologados — CA garantido</div>
-      </div>
-      <!-- duplicatas para loop suave -->
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico">
-        <div class="carousel-caption">EPI completo para linha de produção em frigorífico</div>
-      </div>
-      <div class="carousel-slide">
-        <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício">
-        <div class="carousel-caption">Proteção certificada para o setor alimentício</div>
-      </div>
+  <div class="carousel-strip-wrap">
+    <div class="carousel-strip" id="carouselStrip">
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico"><div class="cs-cap">EPI completo para linha de produção em frigorífico</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício"><div class="cs-cap">Proteção certificada para o setor alimentício</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img3.png" alt="EPIs indústria alimentícia"><div class="cs-cap">EPIs para indústria alimentícia — CA garantido</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img4.png" alt="Uniformes e EPIs frigorífico"><div class="cs-cap">Uniformes e equipamentos homologados</div></div>
+      <!-- clones para loop infinito -->
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico"><div class="cs-cap">EPI completo para linha de produção em frigorífico</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício"><div class="cs-cap">Proteção certificada para o setor alimentício</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img3.png" alt="EPIs indústria alimentícia"><div class="cs-cap">EPIs para indústria alimentícia — CA garantido</div></div>
+      <div class="cs-slide"><img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img4.png" alt="Uniformes e EPIs frigorífico"><div class="cs-cap">Uniformes e equipamentos homologados</div></div>
     </div>
-  </div>
-  <div class="carousel-controls">
-    <button class="carousel-btn" id="carouselPrev">&#8592;</button>
-    <div class="carousel-dots" id="carouselDots"></div>
-    <button class="carousel-btn" id="carouselNext">&#8594;</button>
   </div>
 </section>
 
 <style>
 .carousel-section {
   background: #f0f6ff;
-  padding: 48px 0 40px;
+  padding: 36px 0 36px;
   overflow: hidden;
 }
 .carousel-label {
@@ -674,112 +653,49 @@
   color: #1a73e8;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
-.carousel-track-wrap {
-  overflow: hidden;
+.carousel-strip-wrap {
   width: 100%;
-  position: relative;
+  overflow: hidden;
 }
-.carousel-track {
+.carousel-strip {
   display: flex;
-  transition: transform 0.5s cubic-bezier(.4,0,.2,1);
-  will-change: transform;
+  width: max-content;
+  animation: scrollStrip 18s linear infinite;
 }
-.carousel-slide {
-  min-width: 420px;
-  max-width: 420px;
-  margin: 0 12px;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+.carousel-strip:hover { animation-play-state: paused; }
+@keyframes scrollStrip {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.cs-slide {
+  width: 33.333vw;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
 }
-.carousel-slide img {
+.cs-slide img {
   width: 100%;
-  height: 260px;
+  height: 300px;
   object-fit: cover;
   display: block;
 }
-.carousel-caption {
+.cs-cap {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(10,30,60,0.82));
+  background: linear-gradient(transparent, rgba(10,30,60,0.80));
   color: #fff;
   font-size: 13px;
   font-weight: 600;
-  padding: 28px 16px 14px;
+  padding: 32px 18px 14px;
   line-height: 1.4;
 }
-.carousel-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-}
-.carousel-btn {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 2px solid #1a73e8;
-  background: #fff;
-  color: #1a73e8;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.carousel-btn:hover { background: #1a73e8; color: #fff; }
-.carousel-dots { display: flex; gap: 8px; }
-.carousel-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #c0d4f0; cursor: pointer; transition: background 0.2s;
-}
-.carousel-dot.active { background: #1a73e8; }
-@media(max-width:600px){
-  .carousel-slide { min-width: 82vw; max-width: 82vw; }
-  .carousel-slide img { height: 200px; }
+@media(max-width:700px){
+  .cs-slide { width: 85vw; }
+  .cs-slide img { height: 220px; }
 }
 </style>
-
-<script>
-(function(){
-  var track = document.getElementById('carouselTrack');
-  var slides = track.querySelectorAll('.carousel-slide');
-  var total = 4; // slides reais (sem duplicatas)
-  var current = 0;
-  var slideW = slides[0].offsetWidth + 24;
-  var dotsEl = document.getElementById('carouselDots');
-
-  for(var i=0;i<total;i++){
-    var d = document.createElement('div');
-    d.className = 'carousel-dot' + (i===0?' active':'');
-    d.setAttribute('data-i', i);
-    d.onclick = function(){ goTo(+this.getAttribute('data-i')); };
-    dotsEl.appendChild(d);
-  }
-
-  function goTo(n){
-    current = (n + total) % total;
-    var offset = current * (slides[0].offsetWidth + 24);
-    // centralizar
-    var vw = track.parentElement.offsetWidth;
-    var extra = (vw - slides[0].offsetWidth) / 2;
-    track.style.transform = 'translateX(' + (extra - offset) + 'px)';
-    dotsEl.querySelectorAll('.carousel-dot').forEach(function(d,i){ d.classList.toggle('active', i===current); });
-  }
-
-  document.getElementById('carouselPrev').onclick = function(){ goTo(current-1); };
-  document.getElementById('carouselNext').onclick = function(){ goTo(current+1); };
-
-  window.addEventListener('resize', function(){ goTo(current); });
-  goTo(0);
-
-  // Auto-avanço
-  setInterval(function(){ goTo(current+1); }, 4000);
-})();
-</script>
 
 <!-- DOR -->
 <section class="pain">
