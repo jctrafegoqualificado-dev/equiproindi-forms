@@ -578,33 +578,6 @@
                         <label>Empresa <span style="color:#dc2626">*</span></label>
                         <input type="text" name="empresa" placeholder="Nome da empresa" required>
                     </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Produto <span style="color:#dc2626">*</span></label>
-                            <select name="produto" required>
-                                <option value="">Selecione</option>
-                                <option>Avental frigorífico</option>
-                                <option>Bota PVC / frigorífico</option>
-                                <option>Luvas (nitrila / malha)</option>
-                                <option>Touca / proteção capilar</option>
-                                <option>EPI câmara fria</option>
-                                <option>Uniforme personalizado</option>
-                                <option>Kit EPI completo</option>
-                                <option>Outro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Quantidade</label>
-                            <select name="quantidade">
-                                <option value="">Selecione</option>
-                                <option>Até 20 unidades</option>
-                                <option>20 a 100 unidades</option>
-                                <option>100 a 500 unidades</option>
-                                <option>Acima de 500</option>
-                                <option>Contrato mensal</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label>Observação (opcional)</label>
                         <textarea name="observacao" placeholder="Ex: preciso de EPI com CA para auditoria, prazo urgente..."></textarea>
@@ -1064,8 +1037,6 @@
         var form = this;
         var whatsapp  = form.querySelector('[name="whatsapp"]').value;
         var empresa   = form.querySelector('[name="empresa"]').value;
-        var produto   = form.querySelector('[name="produto"]').value;
-        var quantidade = form.querySelector('[name="quantidade"]').value;
         var obs       = form.querySelector('[name="observacao"]') ? form.querySelector('[name="observacao"]').value : '';
 
         document.getElementById('btn-text').textContent = 'Enviando...';
@@ -1083,8 +1054,6 @@
             var msg = '🛡️ *Novo pedido de orçamento — EPI Setor Alimentício*\n\n';
             msg += '📱 *WhatsApp:* ' + whatsapp + '\n';
             if (empresa)    msg += '🏭 *Empresa:* '    + empresa   + '\n';
-            if (produto)    msg += '📦 *Produto:* '    + produto   + '\n';
-            if (quantidade) msg += '🔢 *Quantidade:* ' + quantidade + '\n';
             if (obs)        msg += '📝 *Observação:* ' + obs        + '\n';
             msg += '\n_Enviado via Landing Page Alimentício_';
 
