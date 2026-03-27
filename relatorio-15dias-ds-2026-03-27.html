@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório 15 Dias — D'Styll Interiores</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f0f2f8;color:#1a1a2e;}
+
+  .header{background:linear-gradient(135deg,#0d0d1a 0%,#1a1aff 100%);padding:44px 48px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.03);}
+  .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+  .header-top img{height:44px;}
+  .header-badges{display:flex;gap:10px;}
+  .badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;}
+  .badge-periodo{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.2);}
+  .badge-meta{background:#1877f2;color:#fff;}
+  .badge-google{background:#4285f4;color:#fff;}
+  .header h1{color:#fff;font-size:32px;font-weight:900;margin-bottom:8px;}
+  .header h1 span{color:#7b7bff;}
+  .header p{color:rgba(255,255,255,0.65);font-size:14px;}
+  .header-stats{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+  .header-stat .hs-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+  .header-stat .hs-value{font-size:20px;font-weight:800;color:#fff;}
+  .header-stat .hs-sub{font-size:11px;color:rgba(255,255,255,0.4);}
+
+  .container{max-width:960px;margin:0 auto;padding:36px 28px 60px;}
+
+  /* SECTION HEADER */
+  .section-block{margin-bottom:32px;}
+  .section-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .section-head .platform-badge{padding:6px 14px;border-radius:8px;font-size:13px;font-weight:800;color:#fff;}
+  .pb-meta{background:#1877f2;}
+  .pb-google{background:#4285f4;}
+  .section-head h2{font-size:18px;font-weight:800;color:#1a1a2e;}
+  .section-head .period{font-size:12px;color:#888;margin-left:auto;}
+
+  /* METRIC CARDS */
+  .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+  .metric-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,0.05);border:1px solid #eef0f8;position:relative;overflow:hidden;}
+  .metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent,#1a1aff);}
+  .metric-card .mc-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .metric-card .mc-value{font-size:26px;font-weight:900;color:#1a1a2e;margin-bottom:4px;}
+  .metric-card .mc-sub{font-size:11px;color:#aaa;}
+  .mc-good{--accent:#00c875;}
+  .mc-warn{--accent:#f5c842;}
+  .mc-bad{--accent:#e03030;}
+  .mc-neutral{--accent:#1a1aff;}
+
+  /* TABLE */
+  .table-card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);overflow:hidden;margin-bottom:20px;border:1px solid #eef0f8;}
+  .table-card-header{padding:16px 20px;border-bottom:1px solid #f0f2f8;display:flex;align-items:center;gap:8px;}
+  .table-card-header h3{font-size:14px;font-weight:700;color:#1a1a2e;}
+  .table-card-header .tch-sub{font-size:12px;color:#888;margin-left:auto;}
+  table{width:100%;border-collapse:collapse;}
+  thead th{background:#f8f9ff;padding:10px 16px;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.5px;text-align:left;}
+  tbody tr{border-bottom:1px solid #f5f6fc;}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:#fafbff;}
+  tbody td{padding:12px 16px;font-size:13px;color:#2d2d4e;}
+  .td-name{font-weight:600;}
+  .td-right{text-align:right;font-weight:700;}
+  .td-center{text-align:center;}
+  .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;}
+  .tag-good{background:#e6f9f2;color:#00a86b;}
+  .tag-warn{background:#fff8e6;color:#c47000;}
+  .tag-bad{background:#ffeaea;color:#c03030;}
+  .tag-neutral{background:#eef0ff;color:#1a1aff;}
+  .tag-paused{background:#f0f0f0;color:#888;}
+
+  /* HIGHLIGHT ROW */
+  .tr-highlight{background:#f0f4ff!important;}
+
+  /* INSIGHTS BOX */
+  .insights-box{background:#fff;border-radius:12px;padding:20px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.05);margin-bottom:20px;border:1px solid #eef0f8;}
+  .insights-box h3{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .insight-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f5f6fc;}
+  .insight-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  .insight-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .ii-good{background:#e6f9f2;}
+  .ii-warn{background:#fff8e6;}
+  .ii-bad{background:#ffeaea;}
+  .ii-info{background:#eef0ff;}
+  .insight-text{flex:1;}
+  .insight-title{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:3px;}
+  .insight-desc{font-size:12px;color:#666;line-height:1.5;}
+
+  /* ALERT BOX */
+  .alert-box{border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;font-size:13px;}
+  .alert-warn{background:#fff8e6;border:1px solid #f5c842;color:#7a5c00;}
+  .alert-info{background:#eef0ff;border:1px solid #b0b0ff;color:#3333aa;}
+
+  /* ACOES */
+  .acoes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .acao-card{background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #eef0f8;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+  .acao-card .ac-num{width:28px;height:28px;border-radius:50%;background:#1a1aff;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .acao-card .ac-title{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:6px;}
+  .acao-card .ac-desc{font-size:12px;color:#666;line-height:1.5;}
+  .acao-card .ac-plat{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;display:inline-block;margin-top:8px;}
+  .acp-meta{background:#e8f0fe;color:#1877f2;}
+  .acp-google{background:#e8f4ea;color:#2e7d32;}
+  .acp-both{background:#f3e8ff;color:#7b1fa2;}
+
+  .footer{background:#0d0d1a;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;}
+  .footer img{height:32px;}
+  .footer p{font-size:12px;color:rgba(255,255,255,0.4);}
+  .footer .f-right{text-align:right;}
+  .footer .f-right strong{display:block;color:rgba(255,255,255,0.7);font-size:13px;margin-bottom:3px;}
+
+  @media(max-width:700px){
+    .metrics-grid{grid-template-columns:1fr 1fr;}
+    .acoes-grid{grid-template-columns:1fr;}
+    .header-stats{flex-wrap:wrap;gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div></div>
+    <div class="header-badges">
+      <span class="badge badge-periodo">12/03 a 27/03/2026</span>
+      <span class="badge badge-meta">Meta Ads</span>
+      <span class="badge badge-google">Google Ads</span>
+    </div>
+  </div>
+  <h1>Relatório <span>15 Dias</span><br>D'Styll Interiores</h1>
+  <p>Análise completa de performance — Meta Ads (dados ao vivo) + Google Ads (último período disponível)</p>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="hs-label">Investimento Meta</div>
+      <div class="hs-value">R$ 301</div>
+      <div class="hs-sub">12/03 – 27/03/2026</div>
+    </div>
+    <div class="header-stat">
+      <div class="hs-label">Investimento Google</div>
+      <div class="hs-value">R$ 1.194</div>
+      <div class="hs-sub">Ref. últimos 30 dias</div>
+    </div>
+    <div class="header-stat">
+      <div class="hs-label">Alcance Meta</div>
+      <div class="hs-value">234.183</div>
+      <div class="hs-sub">pessoas únicas</div>
+    </div>
+    <div class="header-stat">
+      <div class="hs-label">Views de vídeo</div>
+      <div class="hs-value">14.962</div>
+      <div class="hs-sub">Meta — campanha ativa</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ALERTA GOOGLE -->
+  <div class="alert-info">
+    ℹ️ <div><strong>Google Ads — dados de referência:</strong> A API do Google Ads está com acesso temporariamente indisponível. Os dados apresentados abaixo são do relatório de 17/03/2026 (últimos 30 dias) e servem como referência de tendência.</div>
+  </div>
+
+  <!-- META ADS -->
+  <div class="section-block">
+    <div class="section-head">
+      <span class="platform-badge pb-meta">META</span>
+      <h2>Meta Ads — Campanha Ativa</h2>
+      <span class="period">12/03 a 27/03/2026 · 15 dias</span>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card mc-neutral">
+        <div class="mc-label">Investimento</div>
+        <div class="mc-value">R$ 301</div>
+        <div class="mc-sub">~R$ 20/dia</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Alcance</div>
+        <div class="mc-value">234.183</div>
+        <div class="mc-sub">pessoas únicas</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Impressões</div>
+        <div class="mc-value">274.252</div>
+        <div class="mc-sub">Freq. 1,17x</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">CPM</div>
+        <div class="mc-value">R$ 1,10</div>
+        <div class="mc-sub">excelente para interiores</div>
+      </div>
+      <div class="metric-card mc-warn">
+        <div class="mc-label">Cliques no link</div>
+        <div class="mc-value">123</div>
+        <div class="mc-sub">292 total (incl. engaj.)</div>
+      </div>
+      <div class="metric-card mc-warn">
+        <div class="mc-label">CTR</div>
+        <div class="mc-value">0,11%</div>
+        <div class="mc-sub">Objetivo: reconhecimento</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Views de vídeo</div>
+        <div class="mc-value">14.962</div>
+        <div class="mc-sub">94% do total de ações</div>
+      </div>
+      <div class="metric-card mc-neutral">
+        <div class="mc-label">CPC</div>
+        <div class="mc-value">R$ 1,03</div>
+        <div class="mc-sub">por clique no link</div>
+      </div>
+    </div>
+
+    <!-- Campanha Meta -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>📊 Campanhas Ativas</h3>
+        <span class="tch-sub">12/03 – 27/03/2026</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Campanha</th>
+            <th>Status</th>
+            <th>Objetivo</th>
+            <th class="td-right">Gasto</th>
+            <th class="td-right">Impressões</th>
+            <th class="td-right">Cliques</th>
+            <th class="td-right">CTR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr-highlight">
+            <td class="td-name">CP - REC - CBO - 04/03/26 [KF]</td>
+            <td><span class="tag tag-good">Ativa</span></td>
+            <td><span class="tag tag-neutral">Reconhecimento</span></td>
+            <td class="td-right">R$ 301,06</td>
+            <td class="td-right">274.252</td>
+            <td class="td-right">292</td>
+            <td class="td-right">0,11%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Engajamento -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>🎯 Ações e Engajamento</h3>
+        <span class="tch-sub">Detalhamento de interações</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Tipo de Ação</th><th class="td-right">Volume</th><th>Avaliação</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">▶️ Views de vídeo</td>
+            <td class="td-right">14.962</td>
+            <td><span class="tag tag-good">Excelente</span></td>
+          </tr>
+          <tr>
+            <td class="td-name">🔗 Cliques no link</td>
+            <td class="td-right">123</td>
+            <td><span class="tag tag-warn">Normal p/ Awareness</span></td>
+          </tr>
+          <tr>
+            <td class="td-name">❤️ Reações (curtidas etc.)</td>
+            <td class="td-right">23</td>
+            <td><span class="tag tag-neutral">—</span></td>
+          </tr>
+          <tr>
+            <td class="td-name">💾 Salvamentos</td>
+            <td class="td-right">1</td>
+            <td><span class="tag tag-neutral">—</span></td>
+          </tr>
+          <tr>
+            <td class="td-name">📣 Total de engajamentos</td>
+            <td class="td-right">15.110</td>
+            <td><span class="tag tag-good">Alto</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Insights Meta -->
+    <div class="insights-box">
+      <h3>💡 Análise Meta Ads</h3>
+      <div class="insight-item">
+        <div class="insight-icon ii-good">✅</div>
+        <div class="insight-text">
+          <div class="insight-title">CPM de R$1,10 — muito eficiente</div>
+          <div class="insight-desc">Para o segmento de design de interiores (nicho premium), CPM abaixo de R$5 é excelente. A campanha está entregando alcance massivo com custo baixo — 234k pessoas alcançadas por R$301.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-good">✅</div>
+        <div class="insight-text">
+          <div class="insight-title">14.962 views de vídeo — objetivo cumprido</div>
+          <div class="insight-desc">A campanha é de Reconhecimento (awareness). O volume de views indica que o conteúdo está sendo consumido. Frequência de 1,17x saudável — não há saturação de audiência.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-warn">⚠️</div>
+        <div class="insight-text">
+          <div class="insight-title">CTR de 0,11% — esperado para awareness, mas atenção</div>
+          <div class="insight-desc">Campanhas de reconhecimento naturalmente têm CTR baixo. Porém, para converter awareness em leads, é necessário uma campanha de conversão/consideração complementar. Atualmente a conta depende exclusivamente do Google Ads para captar contatos.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-warn">⚠️</div>
+        <div class="insight-text">
+          <div class="insight-title">Zero conversões rastreadas no Meta</div>
+          <div class="insight-desc">Nenhuma ação de lead, compra ou contato foi registrada via pixel. Verificar se o pixel está instalado corretamente no site e se os eventos de conversão (formulário, WhatsApp) estão configurados.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOOGLE ADS -->
+  <div class="section-block">
+    <div class="section-head">
+      <span class="platform-badge pb-google">GOOGLE</span>
+      <h2>Google Ads — Referência (30 dias)</h2>
+      <span class="period">Ref. relatório 17/03/2026</span>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card mc-neutral">
+        <div class="mc-label">Investimento</div>
+        <div class="mc-value">R$ 1.194</div>
+        <div class="mc-sub">últimos 30 dias</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">CTR</div>
+        <div class="mc-value">5,75%</div>
+        <div class="mc-sub">excelente (média 2-4%)</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Impressões</div>
+        <div class="mc-value">12.966</div>
+        <div class="mc-sub">busca orgânica</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Cliques</div>
+        <div class="mc-value">745</div>
+        <div class="mc-sub">CPC R$ 1,60</div>
+      </div>
+      <div class="metric-card mc-warn">
+        <div class="mc-label">Conversões</div>
+        <div class="mc-value">9</div>
+        <div class="mc-sub">CPA R$ 132,72</div>
+      </div>
+      <div class="metric-card mc-neutral">
+        <div class="mc-label">CPC Médio</div>
+        <div class="mc-value">R$ 1,60</div>
+        <div class="mc-sub">muito eficiente</div>
+      </div>
+      <div class="metric-card mc-warn">
+        <div class="mc-label">CPA</div>
+        <div class="mc-value">R$ 133</div>
+        <div class="mc-sub">por conversão</div>
+      </div>
+      <div class="metric-card mc-good">
+        <div class="mc-label">Campanhas ativas</div>
+        <div class="mc-value">1</div>
+        <div class="mc-sub">CP - SEARCH.DESTYLL</div>
+      </div>
+    </div>
+
+    <!-- Campanha Google -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>🔍 Campanhas Google</h3>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Campanha</th>
+            <th>Status</th>
+            <th class="td-right">Custo</th>
+            <th class="td-right">Impressões</th>
+            <th class="td-right">Cliques</th>
+            <th class="td-right">CTR</th>
+            <th class="td-right">Conversões</th>
+            <th class="td-right">CPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr-highlight">
+            <td class="td-name">CP - SEARCH.DESTYLL</td>
+            <td><span class="tag tag-good">Ativa</span></td>
+            <td class="td-right">R$ 1.194,53</td>
+            <td class="td-right">12.966</td>
+            <td class="td-right">745</td>
+            <td class="td-right">5,75%</td>
+            <td class="td-right">9</td>
+            <td class="td-right">R$ 132,72</td>
+          </tr>
+          <tr>
+            <td class="td-name">De Styll</td>
+            <td><span class="tag tag-paused">Pausada</span></td>
+            <td class="td-right">R$ 0,00</td>
+            <td class="td-right">0</td>
+            <td class="td-right">0</td>
+            <td class="td-right">—</td>
+            <td class="td-right">—</td>
+            <td class="td-right">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Insights Google -->
+    <div class="insights-box">
+      <h3>💡 Análise Google Ads</h3>
+      <div class="insight-item">
+        <div class="insight-icon ii-good">✅</div>
+        <div class="insight-text">
+          <div class="insight-title">CTR 5,75% — acima da média do setor</div>
+          <div class="insight-desc">A média do setor de design/decoração no Google é 2-4%. CTR de 5,75% indica que os anúncios são altamente relevantes para as buscas realizadas — palavras-chave bem alinhadas com intenção de compra.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-good">✅</div>
+        <div class="insight-text">
+          <div class="insight-title">CPC de R$1,60 — muito competitivo</div>
+          <div class="insight-desc">Para o segmento de interiores em Curitiba, CPC abaixo de R$3 é eficiente. O custo por clique está bem otimizado.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-warn">⚠️</div>
+        <div class="insight-text">
+          <div class="insight-title">Apenas 9 conversões — rastreamento pode estar incompleto</div>
+          <div class="insight-desc">Com 745 cliques e apenas 9 conversões (taxa de 1,2%), é provável que nem todas as ações de contato estejam sendo rastreadas. WhatsApp, ligações e formulários precisam de eventos configurados.</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon ii-info">💡</div>
+        <div class="insight-text">
+          <div class="insight-title">Campanha "De Styll" pausada — oportunidade perdida</div>
+          <div class="insight-desc">Uma segunda campanha ativa aumentaria a cobertura de palavras-chave e capturaria mais variações de busca. Vale avaliar reativação com orçamento complementar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISAO CONSOLIDADA -->
+  <div class="section-block">
+    <div class="section-head">
+      <span style="font-size:20px;">📊</span>
+      <h2>Visão Consolidada — Meta + Google</h2>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Comparativo por Plataforma</h3></div>
+      <table>
+        <thead>
+          <tr><th>Plataforma</th><th class="td-right">Investimento</th><th class="td-right">Alcance/Imp.</th><th class="td-right">Cliques</th><th class="td-right">CTR</th><th class="td-right">Conversões</th><th class="td-right">CPM/CPC</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">📘 Meta Ads</td>
+            <td class="td-right">R$ 301,06</td>
+            <td class="td-right">234k alcance</td>
+            <td class="td-right">123 (link)</td>
+            <td class="td-right">0,11%</td>
+            <td class="td-right"><span class="tag tag-warn">0</span></td>
+            <td class="td-right">R$1,10 CPM</td>
+          </tr>
+          <tr>
+            <td class="td-name">🔵 Google Ads</td>
+            <td class="td-right">R$ 1.194,53</td>
+            <td class="td-right">12.966 imp.</td>
+            <td class="td-right">745</td>
+            <td class="td-right">5,75%</td>
+            <td class="td-right"><span class="tag tag-warn">9</span></td>
+            <td class="td-right">R$1,60 CPC</td>
+          </tr>
+          <tr style="background:#f8f9ff;font-weight:600;">
+            <td class="td-name">📊 Total</td>
+            <td class="td-right">R$ 1.495,59</td>
+            <td class="td-right">—</td>
+            <td class="td-right">868</td>
+            <td class="td-right">—</td>
+            <td class="td-right">9</td>
+            <td class="td-right">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACOES RECOMENDADAS -->
+  <div class="section-block">
+    <div class="section-head">
+      <span style="font-size:20px;">🚀</span>
+      <h2>Ações Recomendadas</h2>
+    </div>
+    <div class="acoes-grid">
+      <div class="acao-card">
+        <div class="ac-num">1</div>
+        <div class="ac-title">Configurar rastreamento de conversões no Meta</div>
+        <div class="ac-desc">Instalar pixel corretamente e criar eventos para: clique no WhatsApp, envio de formulário e visita à página de portfólio. Sem isso, as campanhas não otimizam para resultado.</div>
+        <span class="ac-plat acp-meta">Meta Ads</span>
+      </div>
+      <div class="acao-card">
+        <div class="ac-num">2</div>
+        <div class="ac-title">Criar campanha de conversão/leads no Meta</div>
+        <div class="ac-desc">A campanha atual é de reconhecimento. Criar uma segunda campanha com objetivo de Lead Generation ou Mensagens para WhatsApp, aproveitando o alcance gerado pelo awareness.</div>
+        <span class="ac-plat acp-meta">Meta Ads</span>
+      </div>
+      <div class="acao-card">
+        <div class="ac-num">3</div>
+        <div class="ac-title">Revisar rastreamento Google — WhatsApp e formulário</div>
+        <div class="ac-desc">Com 745 cliques e 9 conversões, provavelmente existem mais contatos que não estão sendo contabilizados. Configurar conversão por clique no número e envio de formulário no site.</div>
+        <span class="ac-plat acp-google">Google Ads</span>
+      </div>
+      <div class="acao-card">
+        <div class="ac-num">4</div>
+        <div class="ac-title">Criar campanha de remarketing com portfólio visual</div>
+        <div class="ac-desc">Usuários que visitaram o site mas não converteram são o público mais quente. Remarketing com imagens dos projetos de interiores no Meta + Display Google reativa esse interesse.</div>
+        <span class="ac-plat acp-both">Meta + Google</span>
+      </div>
+      <div class="acao-card">
+        <div class="ac-num">5</div>
+        <div class="ac-title">Restaurar acesso à API do Google Ads</div>
+        <div class="ac-desc">A API do Google Ads está retornando erro de acesso. Verificar se o projeto no Google Cloud tem a API "Google Ads API" habilitada e se o developer token está aprovado.</div>
+        <span class="ac-plat acp-google">Google Ads</span>
+      </div>
+      <div class="acao-card">
+        <div class="ac-num">6</div>
+        <div class="ac-title">Avaliar reativação da campanha "De Styll"</div>
+        <div class="ac-desc">Segunda campanha pausada no Google. Analisar motivo da pausa e considerar reativação com palavras-chave complementares à campanha principal, aumentando cobertura de busca.</div>
+        <span class="ac-plat acp-google">Google Ads</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  
+  <div class="f-right">
+    <strong>João Costa — Tráfego Qualificado</strong>
+    <p>Relatório gerado em 27/03/2026</p>
+  </div>
+</div>
+
+</body>
+</html>
