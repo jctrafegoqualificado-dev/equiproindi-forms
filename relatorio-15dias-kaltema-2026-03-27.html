@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Gestão — Kaltema | 15 Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f0f2f8;color:#1a1a2e;font-size:14px;}
+
+  .header{background:linear-gradient(135deg,#0d0d1a 0%,#1a1aff 100%);padding:40px 52px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-100px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.03);}
+  .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;}
+  .header-top img{height:40px;}
+  .header-client{text-align:right;}
+  .header-client .hc-label{font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .header-client .hc-name{font-size:18px;font-weight:800;color:#fff;}
+  .header h1{color:#fff;font-size:28px;font-weight:900;margin-bottom:6px;position:relative;}
+  .header h1 span{color:#7b7bff;}
+  .header .subtitle{color:rgba(255,255,255,0.55);font-size:13px;margin-bottom:28px;}
+  .header-kpis{display:flex;gap:0;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+  .hkpi{flex:1;padding:0 28px 0 0;border-right:1px solid rgba(255,255,255,0.1);}
+  .hkpi:first-child{padding-left:0;}
+  .hkpi:last-child{border-right:none;padding-right:0;}
+  .hkpi-label{font-size:10px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+  .hkpi-value{font-size:22px;font-weight:900;color:#fff;line-height:1;}
+  .hkpi-sub{font-size:11px;color:rgba(255,255,255,0.38);margin-top:4px;}
+
+  .container{max-width:980px;margin:0 auto;padding:36px 28px 60px;}
+
+  .sec-title{display:flex;align-items:center;gap:10px;margin:32px 0 16px;}
+  .sec-title .st-num{width:28px;height:28px;border-radius:50%;background:#1a1aff;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sec-title h2{font-size:16px;font-weight:800;color:#1a1a2e;}
+  .sec-title .st-line{flex:1;height:1px;background:#e4e6f0;margin-left:8px;}
+
+  .kpis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+  .kpi-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 8px rgba(0,0,0,0.05);border:1px solid #eef0f8;position:relative;overflow:hidden;}
+  .kpi-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--ac,#1a1aff);}
+  .kpi-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;}
+  .kpi-value{font-size:24px;font-weight:900;color:#1a1a2e;margin-bottom:4px;line-height:1;}
+  .kpi-sub{font-size:11px;color:#bbb;}
+  .kc-blue{--ac:#1a1aff;} .kc-green{--ac:#00c875;} .kc-yellow{--ac:#f5c842;} .kc-teal{--ac:#00b4d8;}
+
+  .tcard{background:#fff;border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,0.05);overflow:hidden;margin-bottom:20px;border:1px solid #eef0f8;}
+  .tcard-head{padding:14px 20px 12px;border-bottom:1px solid #f0f2f8;display:flex;align-items:center;justify-content:space-between;}
+  .tcard-head h3{font-size:13px;font-weight:700;color:#1a1a2e;}
+  .tcard-head .th-sub{font-size:11px;color:#aaa;}
+  table{width:100%;border-collapse:collapse;}
+  thead th{background:#f8f9ff;padding:9px 16px;font-size:10px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.5px;text-align:left;border-bottom:1px solid #eef0f8;}
+  tbody tr{border-bottom:1px solid #f5f6fc;transition:background 0.1s;}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:#fafbff;}
+  tbody td{padding:11px 16px;font-size:12.5px;color:#2d2d4e;vertical-align:middle;}
+  .td-bold{font-weight:700;}
+  .td-r{text-align:right;}
+  .td-c{text-align:center;}
+  .td-name{font-weight:600;color:#1a1a2e;}
+  .tr-total{background:#f0f4ff!important;font-weight:700;}
+
+  .tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.3px;}
+  .tg-done{background:#e6f9f2;color:#007a4c;}
+  .tg-active{background:#e6f9f2;color:#007a4c;}
+  .tg-paused{background:#f0f0f2;color:#888;}
+  .tg-check{background:#fff0e0;color:#b05c00;}
+  .tg-neutral{background:#eef0ff;color:#1a1aff;}
+  .tg-google{background:#e8f0fe;color:#1a73e8;}
+
+  .act-semana{background:#f0f4ff!important;}
+  .act-semana td{font-weight:700;color:#1a1aff;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:8px 16px!important;}
+
+  .footer{background:#0d0d1a;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;}
+  .footer img{height:30px;}
+  .footer-right{text-align:right;}
+  .footer-right strong{display:block;color:rgba(255,255,255,0.7);font-size:12px;margin-bottom:2px;}
+  .footer-right p{font-size:11px;color:rgba(255,255,255,0.35);}
+
+  @media(max-width:700px){
+    .kpis-grid{grid-template-columns:1fr 1fr;}
+    .header-kpis{flex-wrap:wrap;gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    
+    <div class="header-client">
+      <div class="hc-label">Cliente</div>
+      <div class="hc-name">Kaltema</div>
+    </div>
+  </div>
+  <h1>Relatório de Gestão <span>Google Ads</span></h1>
+  <div class="subtitle">Período: 13 de março a 27 de março de 2026 &nbsp;·&nbsp; 15 dias</div>
+  <div class="header-kpis">
+    <div class="hkpi">
+      <div class="hkpi-label">Investimento no Período</div>
+      <div class="hkpi-value">R$ 254,08</div>
+      <div class="hkpi-sub">período de atividade da campanha</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Conversões</div>
+      <div class="hkpi-value">18</div>
+      <div class="hkpi-sub">leads gerados</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">CPA</div>
+      <div class="hkpi-value">R$ 14,12</div>
+      <div class="hkpi-sub">custo por conversão</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">CTR</div>
+      <div class="hkpi-value">5,39%</div>
+      <div class="hkpi-sub">acima da média do setor</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 1. RESUMO DE PERFORMANCE -->
+  <div class="sec-title">
+    <div class="st-num">1</div>
+    <h2>Resumo de Performance — Campanha Ativa</h2>
+    <div class="st-line"></div>
+  </div>
+
+  <div class="kpis-grid">
+    <div class="kpi-card kc-blue">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value">R$ 254,08</div>
+      <div class="kpi-sub">campanha ativa: 16–20/03</div>
+    </div>
+    <div class="kpi-card kc-green">
+      <div class="kpi-label">Conversões</div>
+      <div class="kpi-value">18</div>
+      <div class="kpi-sub">leads qualificados</div>
+    </div>
+    <div class="kpi-card kc-green">
+      <div class="kpi-label">CPA</div>
+      <div class="kpi-value">R$ 14,12</div>
+      <div class="kpi-sub">vs. R$ 29,83 referência anterior</div>
+    </div>
+    <div class="kpi-card kc-teal">
+      <div class="kpi-label">Impression Share</div>
+      <div class="kpi-value">41,95%</div>
+      <div class="kpi-sub">das impressões disponíveis</div>
+    </div>
+    <div class="kpi-card kc-blue">
+      <div class="kpi-label">Impressões</div>
+      <div class="kpi-value">705</div>
+      <div class="kpi-sub">exibições do anúncio</div>
+    </div>
+    <div class="kpi-card kc-blue">
+      <div class="kpi-label">Cliques</div>
+      <div class="kpi-value">38</div>
+      <div class="kpi-sub">acessos ao site</div>
+    </div>
+    <div class="kpi-card kc-green">
+      <div class="kpi-label">CTR</div>
+      <div class="kpi-value">5,39%</div>
+      <div class="kpi-sub">média do setor: 2–4%</div>
+    </div>
+    <div class="kpi-card kc-yellow">
+      <div class="kpi-label">CPC Médio</div>
+      <div class="kpi-value">R$ 6,69</div>
+      <div class="kpi-sub">custo por clique</div>
+    </div>
+  </div>
+
+  <!-- 2. CAMPANHAS -->
+  <div class="sec-title">
+    <div class="st-num">2</div>
+    <h2>Campanhas — Status e Dados do Período</h2>
+    <div class="st-line"></div>
+  </div>
+
+  <div class="tcard">
+    <div class="tcard-head">
+      <h3>Google Ads · Campanhas de Search</h3>
+      <span class="th-sub">13/03 – 27/03/2026</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Campanha</th>
+          <th>Tipo</th>
+          <th>Status</th>
+          <th class="td-r">Investimento</th>
+          <th class="td-r">Impressões</th>
+          <th class="td-r">Cliques</th>
+          <th class="td-r">CTR</th>
+          <th class="td-r">Conversões</th>
+          <th class="td-r">CPA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-name">CP.RD.PESQUISA.- CORRESP.DE.FRASE</td>
+          <td><span class="tag tg-google">Search</span></td>
+          <td><span class="tag tg-active">&#9679; Ativa</span></td>
+          <td class="td-r td-bold">R$ 254,08</td>
+          <td class="td-r">705</td>
+          <td class="td-r">38</td>
+          <td class="td-r td-bold">5,39%</td>
+          <td class="td-r td-bold">18</td>
+          <td class="td-r td-bold">R$ 14,12</td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:#aaa;">CP - RD.PESQUISA. - PC - COMPRO CONSORCIO</td>
+          <td><span class="tag tg-google">Search</span></td>
+          <td><span class="tag tg-paused">Pausada</span></td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:#aaa;">CP - RD.PESQUISA. - PC - COMPRO CONSORCIO (NOVA)</td>
+          <td><span class="tag tg-google">Search</span></td>
+          <td><span class="tag tg-paused">Pausada</span></td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:#aaa;">CP - RD.PESQUISA.</td>
+          <td><span class="tag tg-google">Search</span></td>
+          <td><span class="tag tg-paused">Pausada</span></td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:#aaa;">CP - RD.PESQUISA.CORRESP.FRASE</td>
+          <td><span class="tag tg-google">Search</span></td>
+          <td><span class="tag tg-paused">Pausada</span></td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+          <td class="td-r" style="color:#bbb;">—</td>
+        </tr>
+        <tr class="tr-total">
+          <td class="td-name">TOTAL</td>
+          <td></td>
+          <td></td>
+          <td class="td-r">R$ 254,08</td>
+          <td class="td-r">705</td>
+          <td class="td-r">38</td>
+          <td class="td-r">5,39%</td>
+          <td class="td-r">18</td>
+          <td class="td-r">R$ 14,12</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. COMPARATIVO -->
+  <div class="sec-title">
+    <div class="st-num">3</div>
+    <h2>Comparativo de Performance — Evolução do Período</h2>
+    <div class="st-line"></div>
+  </div>
+
+  <div class="tcard">
+    <div class="tcard-head">
+      <h3>Evolução de métricas</h3>
+      <span class="th-sub">Referência acumulada (fev–mar) vs. período atual</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Métrica</th>
+          <th class="td-r">Referência (30 dias)</th>
+          <th class="td-r">Período atual (16–20/03)</th>
+          <th class="td-c">Variacao</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-name">Investimento médio/dia</td>
+          <td class="td-r">R$ 40,77/dia</td>
+          <td class="td-r">R$ 50,82/dia</td>
+          <td class="td-c"><span class="tag tg-neutral">+24,6%</span></td>
+        </tr>
+        <tr>
+          <td class="td-name">CTR</td>
+          <td class="td-r">4,86%</td>
+          <td class="td-r">5,39%</td>
+          <td class="td-c"><span class="tag tg-done">&#9650; +0,53 p.p.</span></td>
+        </tr>
+        <tr>
+          <td class="td-name">CPC Medio</td>
+          <td class="td-r">R$ 6,65</td>
+          <td class="td-r">R$ 6,69</td>
+          <td class="td-c"><span class="tag tg-check">Estavel</span></td>
+        </tr>
+        <tr>
+          <td class="td-name">Conversoes por dia</td>
+          <td class="td-r">1,4 / dia</td>
+          <td class="td-r">3,6 / dia</td>
+          <td class="td-c"><span class="tag tg-done">&#9650; +157%</span></td>
+        </tr>
+        <tr>
+          <td class="td-name">CPA</td>
+          <td class="td-r">R$ 29,83</td>
+          <td class="td-r">R$ 14,12</td>
+          <td class="td-c"><span class="tag tg-done">&#9660; -52,7% melhor</span></td>
+        </tr>
+        <tr>
+          <td class="td-name">Impression Share</td>
+          <td class="td-r">44,82%</td>
+          <td class="td-r">41,95%</td>
+          <td class="td-c"><span class="tag tg-check">Estavel</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. ATIVIDADES REALIZADAS -->
+  <div class="sec-title">
+    <div class="st-num">4</div>
+    <h2>Atividades Realizadas no Período</h2>
+    <div class="st-line"></div>
+  </div>
+
+  <div class="tcard">
+    <div class="tcard-head">
+      <h3>Registro de gestao — 13/03 a 27/03/2026</h3>
+      <span class="th-sub">Google Ads · gestao ativa</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:130px;">Data</th>
+          <th>Atividade</th>
+          <th style="width:120px;">Categoria</th>
+          <th class="td-c" style="width:90px;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="act-semana"><td colspan="4">Semana 1 — 13 a 16 de marco</td></tr>
+        <tr>
+          <td class="td-bold">13/03 · Qui</td>
+          <td>Analise de performance semanal — revisao de metricas acumuladas da campanha ativa</td>
+          <td><span class="tag tg-google">Analise</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">13/03 · Qui</td>
+          <td>Revisao de termos de pesquisa — identificacao e adicao de termos negativos irrelevantes</td>
+          <td><span class="tag tg-google">Otimizacao</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">14/03 · Sex</td>
+          <td>Monitoramento de entrega — verificacao de orcamento diario e pacing da campanha</td>
+          <td><span class="tag tg-google">Monitoramento</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">14/03 · Sex</td>
+          <td>Geracao do relatorio semanal de performance — envio ao cliente</td>
+          <td><span class="tag tg-google">Relatorio</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr class="act-semana"><td colspan="4">Semana 2 — 17 a 21 de marco</td></tr>
+        <tr>
+          <td class="td-bold">17/03 · Seg</td>
+          <td>Analise aprofundada de campanha — revisao de CTR, CPA e Impression Share acumulado dos ultimos 30 dias</td>
+          <td><span class="tag tg-google">Analise</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">17/03 · Seg</td>
+          <td>Ajuste de lances — calibracao de CPC maximo por grupo de anuncios conforme performance</td>
+          <td><span class="tag tg-google">Otimizacao</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">18/03 · Ter</td>
+          <td>Monitoramento diario — acompanhamento de impressoes, cliques e conversoes do dia</td>
+          <td><span class="tag tg-google">Monitoramento</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">19/03 · Qua</td>
+          <td>Revisao de anuncios — verificacao de qualidade de copy e relevancia dos titulos ativos</td>
+          <td><span class="tag tg-google">Otimizacao</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">20/03 · Qui</td>
+          <td>Relatorio de performance semanal (16–20/03) — consolidacao de dados e analise de CPA</td>
+          <td><span class="tag tg-google">Relatorio</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">20/03 · Qui</td>
+          <td>Analise de palavras-chave — revisao de correspondencias de frase e identificacao de variacoes de alta intencao</td>
+          <td><span class="tag tg-google">Analise</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr class="act-semana"><td colspan="4">Semana 3 — 24 a 27 de marco</td></tr>
+        <tr>
+          <td class="td-bold">24/03 · Seg</td>
+          <td>Monitoramento de entrega — verificacao de orcamento, pacing e qualidade de trafego</td>
+          <td><span class="tag tg-google">Monitoramento</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">25/03 · Ter</td>
+          <td>Revisao de termos de pesquisa — analise de novos termos ativados e negativacao de irrelevantes</td>
+          <td><span class="tag tg-google">Otimizacao</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">26/03 · Qua</td>
+          <td>Revisao de estrutura de conta — verificacao de grupos de anuncios, extensoes e configuracoes de campanha</td>
+          <td><span class="tag tg-google">Analise</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+        <tr>
+          <td class="td-bold">27/03 · Qui</td>
+          <td>Relatorio quinzenal de performance — consolidacao de dados do periodo 13–27/03/2026</td>
+          <td><span class="tag tg-google">Relatorio</span></td>
+          <td class="td-c"><span class="tag tg-done">Concluido</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESUMO ATIVIDADES -->
+  <div class="tcard">
+    <div class="tcard-head">
+      <h3>Resumo por tipo de atividade</h3>
+      <span class="th-sub">13/03 – 27/03/2026</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th class="td-c">Qtd.</th>
+          <th>Descricao</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-name">Analise</td>
+          <td class="td-c td-bold">4</td>
+          <td style="color:#555;font-size:12px;">Performance semanal, analise 30 dias, palavras-chave, estrutura de conta</td>
+        </tr>
+        <tr>
+          <td class="td-name">Otimizacao</td>
+          <td class="td-c td-bold">4</td>
+          <td style="color:#555;font-size:12px;">Termos negativos, ajuste de lances, revisao de anuncios, revisao de termos de pesquisa</td>
+        </tr>
+        <tr>
+          <td class="td-name">Monitoramento</td>
+          <td class="td-c td-bold">3</td>
+          <td style="color:#555;font-size:12px;">Orcamento e pacing diario, acompanhamento de metricas</td>
+        </tr>
+        <tr>
+          <td class="td-name">Relatorios</td>
+          <td class="td-c td-bold">3</td>
+          <td style="color:#555;font-size:12px;">Relatorio semanal 14/03, relatorio semanal 20/03, relatorio quinzenal 27/03</td>
+        </tr>
+        <tr class="tr-total">
+          <td class="td-name">Total de atividades realizadas</td>
+          <td class="td-c">14</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  
+  <div class="footer-right">
+    <strong>Joao Costa — Trafego Qualificado</strong>
+    <p>Relatorio gerado em 27/03/2026 &nbsp;·&nbsp; Kaltema</p>
+  </div>
+</div>
+
+</body>
+</html>
