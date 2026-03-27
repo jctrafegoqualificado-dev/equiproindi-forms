@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levantamento de Custos — Toca do Barbudo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #fdf6ec; color: #2d1a0e; }
+
+  .header {
+    background: linear-gradient(135deg, #3a1a06 0%, #5a2d0c 60%, #7a3d1a 100%);
+    padding: 36px 40px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .header img { height: 60px; }
+  .header-text h1 { color: #f5e6c8; font-size: 26px; font-weight: 800; }
+  .header-text p { color: #c8a87a; font-size: 14px; margin-top: 4px; }
+
+  .intro {
+    background: #fff8f0;
+    border-left: 5px solid #5a2d0c;
+    margin: 32px 40px;
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+  }
+  .intro p { font-size: 14px; color: #5a2d0c; line-height: 1.7; }
+  .intro strong { color: #3a1a06; }
+
+  .container { padding: 0 40px 60px; max-width: 900px; margin: 0 auto; }
+
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 12px rgba(90,45,12,0.08);
+    overflow: hidden;
+  }
+  .section-header {
+    background: linear-gradient(135deg, #5a2d0c, #7a3d1a);
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-header .icon { font-size: 22px; }
+  .section-header h2 { color: #f5e6c8; font-size: 17px; font-weight: 700; }
+  .section-header .badge {
+    margin-left: auto;
+    background: rgba(245,230,200,0.2);
+    color: #f5e6c8;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .section-body { padding: 20px 24px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #f5ebe0; }
+  thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a2d0c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tbody tr { border-bottom: 1px solid #f0e8dd; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fdf6ec; }
+  tbody td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #2d1a0e;
+    vertical-align: middle;
+  }
+  .item-name { font-weight: 500; }
+  .item-obs { font-size: 12px; color: #8a6040; margin-top: 3px; }
+
+  .input-field {
+    width: 100%;
+    border: 1.5px solid #ddd0c0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #2d1a0e;
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+  .input-field:focus { outline: none; border-color: #5a2d0c; }
+  .input-field::placeholder { color: #c0a880; }
+
+  .select-field {
+    width: 100%;
+    border: 1.5px solid #ddd0c0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #2d1a0e;
+    background: #fff;
+    cursor: pointer;
+  }
+  .select-field:focus { outline: none; border-color: #5a2d0c; }
+
+  .total-row { background: #f5ebe0 !important; }
+  .total-row td { font-weight: 700; color: #3a1a06; }
+
+  .resumo {
+    background: linear-gradient(135deg, #3a1a06, #5a2d0c);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    color: #f5e6c8;
+  }
+  .resumo h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+  .resumo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .resumo-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .resumo-card .label { font-size: 12px; color: #c8a87a; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+  .resumo-card .value { font-size: 22px; font-weight: 800; color: #fff; }
+  .resumo-card .value-input {
+    font-size: 20px; font-weight: 800; color: #fff;
+    background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.3);
+    width: 100%; text-align: center; font-family: 'Inter', sans-serif;
+  }
+  .resumo-card .value-input:focus { outline: none; border-bottom-color: #f5c842; }
+
+  .obs-box {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #fdf6ec;
+    border-radius: 8px;
+    border: 1px dashed #c8a87a;
+  }
+  .obs-box label { font-size: 12px; font-weight: 600; color: #5a2d0c; display: block; margin-bottom: 6px; }
+  .obs-box textarea {
+    width: 100%; border: none; background: transparent;
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    color: #2d1a0e; resize: vertical; min-height: 60px;
+  }
+  .obs-box textarea:focus { outline: none; }
+
+  .alert {
+    background: #fff3cd;
+    border: 1px solid #f5c842;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #7a5c00;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px;
+    background: #3a1a06;
+    color: #c8a87a;
+    font-size: 12px;
+  }
+  .footer img { height: 32px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+
+  @media print {
+    .header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .section-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  
+  <div class="header-text">
+    <h1>Levantamento de Custos</h1>
+    <p>Toca do Barbudo — Diagnóstico Financeiro Completo</p>
+  </div>
+</div>
+
+<div style="max-width:900px; margin:0 auto;">
+
+<div class="intro" style="margin:32px 40px 0;">
+  <p><strong>Willian, preencha este documento com os valores mensais aproximados de cada item.</strong><br>
+  Caso algum custo não se aplique, deixe em branco. Os dados serão usados para calcular o ponto de equilíbrio,
+  margem de lucro e definir metas de faturamento realistas para o crescimento da Toca do Barbudo.</p>
+</div>
+
+<div class="container">
+
+<!-- SECAO 1: CUSTOS FIXOS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🏠</span>
+    <h2>Custos Fixos Mensais</h2>
+    <span class="badge">Obrigatório preencher</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Item</th>
+          <th style="width:30%">Valor Mensal (R$)</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="item-name">Aluguel do espaço</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Ex: vence dia 5"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Energia elétrica</div>
+            <div class="item-obs">Média dos últimos 3 meses</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Água</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Internet</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Telefone / Celular</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Sistema de agendamento</div>
+            <div class="item-obs">Ex: Booksy, iSalon, etc.</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Qual sistema?"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Contador / Contabilidade</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Segurança / Alarme / Câmeras</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Seguro do estabelecimento</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Serviços de limpeza</div>
+            <div class="item-obs">Diarista, produto de limpeza, etc.</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Financiamento / Leasing equipamentos</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Ex: cadeiras, máquinas"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Outros fixos</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Descreva"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECAO 2: FOLHA DE PAGAMENTO -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">👥</span>
+    <h2>Folha de Pagamento</h2>
+    <span class="badge">Incluir todos</span>
+  </div>
+  <div class="section-body">
+    <div class="alert">
+      ⚠️ Inclua todos os barbeiros, recepcionistas e qualquer pessoa que receba pagamento pela barbearia, seja CLT, PJ ou comissionado.
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:25%">Função</th>
+          <th style="width:20%">Regime</th>
+          <th style="width:20%">Salário / Retirada</th>
+          <th style="width:15%">% Comissão</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="item-name">Willian (proprietário)</div></td>
+          <td>
+            <select class="select-field">
+              <option>Pró-labore</option>
+              <option>CLT</option>
+              <option>PJ</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="—"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Barbeiro 1</div></td>
+          <td>
+            <select class="select-field">
+              <option>Comissionado</option>
+              <option>CLT</option>
+              <option>PJ</option>
+              <option>Parceiro</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="50%"></td>
+          <td><input type="text" class="input-field" placeholder="Nome"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Barbeiro 2</div></td>
+          <td>
+            <select class="select-field">
+              <option>Comissionado</option>
+              <option>CLT</option>
+              <option>PJ</option>
+              <option>Parceiro</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="50%"></td>
+          <td><input type="text" class="input-field" placeholder="Nome"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Barbeiro 3</div></td>
+          <td>
+            <select class="select-field">
+              <option>Comissionado</option>
+              <option>CLT</option>
+              <option>PJ</option>
+              <option>Parceiro</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="50%"></td>
+          <td><input type="text" class="input-field" placeholder="Nome"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Recepcionista / Apoio</div></td>
+          <td>
+            <select class="select-field">
+              <option>CLT</option>
+              <option>PJ</option>
+              <option>Horista</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="—"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="obs-box" style="margin-top:16px;">
+      <label>Encargos trabalhistas (FGTS, INSS, férias, 13º) — se tiver CLT</label>
+      <input type="text" class="input-field" placeholder="R$ 0,00 / mês estimado">
+    </div>
+  </div>
+</div>
+
+<!-- SECAO 3: CUSTOS VARIAVEIS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📦</span>
+    <h2>Custos Variáveis Mensais</h2>
+    <span class="badge">Média mensal</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Item</th>
+          <th style="width:30%">Valor Mensal (R$)</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="item-name">Produtos de consumo</div>
+            <div class="item-obs">Shampoo, condicionador, creme de barba, gel, pomada, cera</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Descartáveis</div>
+            <div class="item-obs">Toalhas, luvas, navalinhas, espumas, algodão</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Produtos para revenda</div>
+            <div class="item-obs">Pomadas, shampoos, perfumes vendidos na barbearia</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Quais marcas?"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Manutenção de equipamentos</div>
+            <div class="item-obs">Máquinas de corte, cadeiras, vaporizador</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Embalagens / Sacolas</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Outros variáveis</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Descreva"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECAO 4: IMPOSTOS E TAXAS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📋</span>
+    <h2>Impostos e Taxas</h2>
+    <span class="badge">Mensal</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Item</th>
+          <th style="width:25%">Regime / Alíquota</th>
+          <th style="width:20%">Valor Mensal</th>
+          <th>Obs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="item-name">Regime tributário atual</div>
+          </td>
+          <td>
+            <select class="select-field">
+              <option>MEI</option>
+              <option>Simples Nacional</option>
+              <option>Lucro Presumido</option>
+              <option>Lucro Real</option>
+              <option>Não sei</option>
+            </select>
+          </td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Taxa da maquininha (débito/crédito)</div></td>
+          <td><input type="text" class="input-field" placeholder="Ex: 2,5%"></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Qual maquininha?"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Licenças / Alvarás</div></td>
+          <td><input type="text" class="input-field" placeholder="Anual / mensal"></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Outros impostos</div></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Descreva"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECAO 5: MARKETING E INVESTIMENTOS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📣</span>
+    <h2>Marketing e Investimentos</h2>
+    <span class="badge">Atual / Previsto</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Item</th>
+          <th style="width:30%">Valor Mensal (R$)</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="item-name">Anúncios pagos (Meta/Google)</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder="Previsto ou atual"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Gestão de tráfego</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Criação de conteúdo / Designer</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Material impresso (cartão, flyer)</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+          <td><input type="text" class="input-field" placeholder=""></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECAO 6: DADOS DE FATURAMENTO -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💰</span>
+    <h2>Faturamento e Dados de Atendimento</h2>
+    <span class="badge">Referência atual</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50%">Informação</th>
+          <th>Resposta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="item-name">Faturamento médio mensal atual</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Ticket médio por cliente</div></td>
+          <td><input type="text" class="input-field" placeholder="R$ 0,00"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Quantos clientes atende por dia (média)</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="Ex: 15 clientes/dia"></td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Dias de funcionamento por mês</div></td>
+          <td><input type="text" class="input-field" placeholder="Ex: 26 dias"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Horário de funcionamento</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="Ex: Seg-Sáb 9h-20h"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Formas de pagamento aceitas</div>
+          </td>
+          <td><input type="text" class="input-field" placeholder="Ex: PIX, débito, crédito, dinheiro"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="item-name">Usa sistema de agendamento?</div>
+          </td>
+          <td>
+            <select class="select-field">
+              <option>Sim — qual?</option>
+              <option>Não — agendo pelo WhatsApp</option>
+              <option>Não — walk-in apenas</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="item-name">Maior fonte de novos clientes hoje</div></td>
+          <td><input type="text" class="input-field" placeholder="Ex: indicação, Instagram, Google"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- RESUMO AUTOMATICO -->
+<div class="resumo">
+  <h2>📊 Resumo — Preencha os totais abaixo</h2>
+  <div class="resumo-grid">
+    <div class="resumo-card">
+      <div class="label">Custos Fixos</div>
+      <div class="value-input-wrap">
+        <input type="text" class="value-input" placeholder="R$ 0,00">
+      </div>
+    </div>
+    <div class="resumo-card">
+      <div class="label">Folha de Pagamento</div>
+      <input type="text" class="value-input" placeholder="R$ 0,00">
+    </div>
+    <div class="resumo-card">
+      <div class="label">Custos Variáveis</div>
+      <input type="text" class="value-input" placeholder="R$ 0,00">
+    </div>
+    <div class="resumo-card">
+      <div class="label">Impostos e Taxas</div>
+      <input type="text" class="value-input" placeholder="R$ 0,00">
+    </div>
+    <div class="resumo-card">
+      <div class="label">Marketing</div>
+      <input type="text" class="value-input" placeholder="R$ 0,00">
+    </div>
+    <div class="resumo-card" style="background: rgba(245,200,66,0.2); border: 2px solid rgba(245,200,66,0.4);">
+      <div class="label" style="color:#f5c842;">TOTAL CUSTO MENSAL</div>
+      <input type="text" class="value-input" placeholder="R$ 0,00" style="color:#f5c842; font-size:24px;">
+    </div>
+  </div>
+</div>
+
+<!-- OBSERVACOES GERAIS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📝</span>
+    <h2>Observações Gerais</h2>
+  </div>
+  <div class="section-body">
+    <div class="obs-box">
+      <label>Tem alguma dívida ou parcelamento ativo? (descreva valor e prazo)</label>
+      <textarea placeholder="Ex: parcelamento de equipamentos em 12x de R$250, falta 8 parcelas..."></textarea>
+    </div>
+    <div class="obs-box" style="margin-top:12px;">
+      <label>Tem sócio? Como é dividido o lucro?</label>
+      <textarea placeholder="Ex: sou sócio com meu irmão, dividimos 50/50..."></textarea>
+    </div>
+    <div class="obs-box" style="margin-top:12px;">
+      <label>Qual custo você considera mais alto / mais difícil de controlar?</label>
+      <textarea placeholder="Escreva aqui..."></textarea>
+    </div>
+    <div class="obs-box" style="margin-top:12px;">
+      <label>Algum custo que pretende reduzir ou eliminar em breve?</label>
+      <textarea placeholder="Escreva aqui..."></textarea>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+</div><!-- end max-width wrapper -->
+
+<div class="footer">
+  
+  <p>Documento preparado por João Costa — Tráfego Qualificado</p>
+  <p style="margin-top:4px;">As informações são confidenciais e utilizadas exclusivamente para consultoria.</p>
+</div>
+
+</body>
+</html>
