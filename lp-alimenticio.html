@@ -1180,15 +1180,22 @@
       <li><i class="fas fa-check-circle"></i> <strong>Orçamento em 24h</strong> direto com o fabricante</li>
     </ul>
 
+    <div id="popup-coupon">
+      <div id="popup-coupon-label"><i class="fas fa-tag"></i> Cupom exclusivo para você</div>
+      <div id="popup-coupon-code">EQUIP5</div>
+      <div id="popup-coupon-desc">5% de desconto no primeiro pedido — mencione no WhatsApp</div>
+      <button id="popup-copy-btn" onclick="copyCoupon()"><i class="fas fa-copy"></i> Copiar código</button>
+    </div>
+
     <div id="popup-countdown-wrap">
       <i class="fas fa-clock"></i>
-      Esta oferta expira em <span id="popup-timer">10:00</span>
+      Este cupom expira em <span id="popup-timer">10:00</span>
     </div>
 
     <a id="popup-wpp"
-       href="https://wa.me/554133468136?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20fechar%20or%C3%A7amento%20de%20EPI%20para%20setor%20aliment%C3%ADcio."
+       href="https://wa.me/554133468136?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20usar%20o%20cupom%20EQUIP5%20(5%25%20de%20desconto)%20no%20meu%20or%C3%A7amento%20de%20EPI%20para%20setor%20aliment%C3%ADcio."
        target="_blank">
-      <i class="fab fa-whatsapp"></i> Quero fechar orçamento agora
+      <i class="fab fa-whatsapp"></i> Usar cupom e fechar orçamento
     </a>
 
     <p id="popup-skip" onclick="closePopup()">Não, vou arriscar sem garantia</p>
@@ -1290,6 +1297,56 @@
   flex-shrink: 0;
 }
 
+#popup-coupon {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px dashed var(--primary);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+#popup-coupon-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+#popup-coupon-code {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--primary-dark);
+  font-family: monospace;
+  margin-bottom: 4px;
+}
+#popup-coupon-desc {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 10px;
+}
+#popup-copy-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+#popup-copy-btn:hover { background: var(--primary-dark); }
+#popup-copy-btn.copied { background: #16a34a; }
+
 #popup-countdown-wrap {
   background: #fef3c7;
   border: 1px solid #fde68a;
@@ -1357,6 +1414,15 @@
     overlay.classList.add('hidden');
   }
   window.closePopup = closePopup;
+
+  window.copyCoupon = function() {
+    navigator.clipboard.writeText('EQUIP5').then(function(){
+      var btn = document.getElementById('popup-copy-btn');
+      btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.innerHTML = '<i class="fas fa-copy"></i> Copiar código'; btn.classList.remove('copied'); }, 2500);
+    });
+  };
 
   document.getElementById('popup-close').onclick = closePopup;
   overlay.addEventListener('click', function(e){
