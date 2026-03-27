@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta de Investimento — Toca do Barbudo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#f4f6fa; color:#1a1a2e; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1aff 100%);
+    padding: 48px 48px 40px;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content:''; position:absolute; top:-60px; right:-60px;
+    width:300px; height:300px; border-radius:50%;
+    background:rgba(255,255,255,0.04);
+  }
+  .header::after {
+    content:''; position:absolute; bottom:-80px; right:120px;
+    width:200px; height:200px; border-radius:50%;
+    background:rgba(255,255,255,0.03);
+  }
+  .header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+  .header-top img { height:48px; }
+  .header-badge {
+    background: rgba(255,255,255,0.15);
+    color:#fff; border:1px solid rgba(255,255,255,0.2);
+    padding:6px 16px; border-radius:20px; font-size:12px; font-weight:600;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .header h1 { color:#fff; font-size:36px; font-weight:900; line-height:1.15; margin-bottom:12px; }
+  .header h1 span { color:#7b7bff; }
+  .header p { color:rgba(255,255,255,0.7); font-size:15px; max-width:520px; line-height:1.6; }
+  .header-meta {
+    display:flex; gap:32px; margin-top:28px;
+    padding-top:28px; border-top:1px solid rgba(255,255,255,0.1);
+  }
+  .header-meta div { display:flex; flex-direction:column; gap:4px; }
+  .header-meta .label { font-size:11px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px; }
+  .header-meta .value { font-size:14px; color:#fff; font-weight:600; }
+
+  .container { max-width:860px; margin:0 auto; padding:40px 32px 60px; }
+
+  /* INTRO BOX */
+  .intro-box {
+    background:#fff; border-radius:16px; padding:28px 32px;
+    margin-bottom:32px; border-left:5px solid #1a1aff;
+    box-shadow:0 2px 16px rgba(26,26,255,0.07);
+  }
+  .intro-box p { font-size:15px; color:#444; line-height:1.8; }
+  .intro-box strong { color:#1a1aff; }
+
+  /* SECTION */
+  .section { margin-bottom:28px; }
+  .section-title {
+    font-size:13px; font-weight:700; color:#1a1aff;
+    text-transform:uppercase; letter-spacing:1.5px;
+    margin-bottom:16px; display:flex; align-items:center; gap:8px;
+  }
+  .section-title::after {
+    content:''; flex:1; height:1px; background:#e0e4f0;
+  }
+
+  /* CARDS GRID */
+  .cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+  .card {
+    background:#fff; border-radius:14px; padding:24px 26px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.06);
+    border:1px solid #eef0f8; position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, #1a1aff, #7b7bff);
+  }
+  .card.highlight { border-color:#1a1aff; background:linear-gradient(135deg, #f0f0ff, #fff); }
+  .card.highlight::before { background:linear-gradient(90deg, #1a1aff, #4040ff); height:4px; }
+  .card .card-icon { font-size:28px; margin-bottom:12px; }
+  .card .card-label { font-size:12px; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+  .card .card-title { font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px; }
+  .card .card-value { font-size:28px; font-weight:900; color:#1a1aff; margin-bottom:8px; }
+  .card .card-value.green { color:#00a86b; }
+  .card .card-value.orange { color:#e07000; }
+  .card .card-note { font-size:12px; color:#888; line-height:1.5; }
+  .card .card-badge {
+    display:inline-block; background:#eef0ff; color:#1a1aff;
+    font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; margin-top:8px;
+  }
+
+  /* FULL WIDTH CARD */
+  .card-full {
+    background:#fff; border-radius:14px; padding:24px 28px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.06);
+    border:1px solid #eef0f8; margin-bottom:28px;
+  }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; }
+  thead th {
+    background:#f4f6fa; padding:12px 16px;
+    font-size:12px; font-weight:700; color:#666;
+    text-transform:uppercase; letter-spacing:0.5px; text-align:left;
+  }
+  tbody tr { border-bottom:1px solid #f0f2f8; }
+  tbody tr:last-child { border-bottom:none; }
+  tbody td { padding:14px 16px; font-size:14px; color:#2d2d4e; vertical-align:middle; }
+  .td-name { font-weight:600; }
+  .td-sub { font-size:12px; color:#888; margin-top:3px; }
+  .td-value { font-weight:700; color:#1a1aff; text-align:right; font-size:16px; }
+  .td-type { text-align:center; }
+  .tag {
+    display:inline-block; padding:3px 10px; border-radius:20px;
+    font-size:11px; font-weight:700;
+  }
+  .tag-invest { background:#eef0ff; color:#1a1aff; }
+  .tag-fixed { background:#e6f9f2; color:#00a86b; }
+  .tag-comissao { background:#fff3e6; color:#e07000; }
+
+  /* TOTAL ROW */
+  .total-section {
+    background:linear-gradient(135deg, #0d0d1a, #1a1aff);
+    border-radius:14px; padding:28px 32px; margin-bottom:28px;
+    color:#fff;
+  }
+  .total-section h3 { font-size:14px; font-weight:600; color:rgba(255,255,255,0.7); margin-bottom:20px; text-transform:uppercase; letter-spacing:1px; }
+  .total-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+  .total-item { text-align:center; }
+  .total-item .t-label { font-size:11px; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+  .total-item .t-value { font-size:26px; font-weight:900; color:#fff; }
+  .total-item .t-sub { font-size:11px; color:rgba(255,255,255,0.5); margin-top:4px; }
+  .total-item.destaque .t-value { color:#f5c842; font-size:32px; }
+  .divider { width:1px; background:rgba(255,255,255,0.15); }
+
+  /* COMISSAO */
+  .comissao-box {
+    background:#fff8ee; border:2px solid #f5a623; border-radius:14px;
+    padding:24px 28px; margin-bottom:28px;
+  }
+  .comissao-box h3 { font-size:16px; font-weight:800; color:#c47000; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .comissao-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+  .comissao-item { text-align:center; background:#fff; border-radius:10px; padding:16px; border:1px solid #fde0a0; }
+  .comissao-item .faturamento { font-size:12px; color:#888; margin-bottom:6px; font-weight:600; }
+  .comissao-item .valor-fat { font-size:16px; font-weight:700; color:#2d2d4e; margin-bottom:4px; }
+  .comissao-item .comissao-val { font-size:22px; font-weight:900; color:#e07000; }
+  .comissao-item .comissao-label { font-size:11px; color:#888; }
+
+  /* PRAZO */
+  .prazo-box {
+    background:#fff; border-radius:14px; padding:24px 28px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:28px;
+    border:1px solid #eef0f8;
+  }
+  .timeline { display:flex; gap:0; position:relative; margin-top:20px; }
+  .timeline::before {
+    content:''; position:absolute; top:20px; left:20px; right:20px; height:2px;
+    background:linear-gradient(90deg, #1a1aff, #7b7bff, #e0e4f0);
+  }
+  .timeline-item { flex:1; text-align:center; position:relative; }
+  .timeline-dot {
+    width:40px; height:40px; border-radius:50%;
+    background:#1a1aff; color:#fff; font-weight:800; font-size:14px;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 12px; position:relative; z-index:1; box-shadow:0 4px 12px rgba(26,26,255,0.3);
+  }
+  .timeline-dot.inactive { background:#e0e4f0; color:#888; box-shadow:none; }
+  .timeline-label { font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:4px; }
+  .timeline-sub { font-size:11px; color:#888; line-height:1.4; }
+
+  /* FOOTER */
+  .footer {
+    background:#0d0d1a; padding:32px 48px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .footer img { height:36px; }
+  .footer p { font-size:12px; color:rgba(255,255,255,0.4); }
+  .footer .assinatura { text-align:right; }
+  .footer .assinatura strong { display:block; color:rgba(255,255,255,0.8); font-size:14px; margin-bottom:4px; }
+
+  @media (max-width:640px) {
+    .cards-grid { grid-template-columns:1fr; }
+    .total-grid { grid-template-columns:1fr; }
+    .comissao-grid { grid-template-columns:1fr; }
+    .header h1 { font-size:26px; }
+    .container { padding:24px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div></div>
+    <div class="header-badge">Proposta Comercial</div>
+  </div>
+  <h1>Plano de <span>Investimento</span><br>Toca do Barbudo</h1>
+  <p>Estrutura de custos e investimentos para crescimento da barbearia com foco em novos clientes, operação profissional e faturamento recorrente.</p>
+  <div class="header-meta">
+    <div>
+      <span class="label">Cliente</span>
+      <span class="value">Willian — Toca do Barbudo</span>
+    </div>
+    <div>
+      <span class="label">Data</span>
+      <span class="value">Março / 2026</span>
+    </div>
+    <div>
+      <span class="label">Consultor</span>
+      <span class="value">João Costa</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <p>
+      Willian, este documento apresenta de forma clara os investimentos necessários para estruturar e escalar a Toca do Barbudo.
+      O plano é dividido em <strong>investimento inicial em produtos</strong>, <strong>custos mensais de operação</strong>
+      e <strong>comissão sobre resultado</strong> — modelo transparente onde ganho apenas quando você ganha.
+    </p>
+  </div>
+
+  <!-- INVESTIMENTOS -->
+  <div class="section-title">📦 Detalhamento dos investimentos</div>
+
+  <div class="card-full">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Item</th>
+          <th>Descrição</th>
+          <th style="width:15%">Tipo</th>
+          <th style="width:18%">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="td-name">🛒 Produtos de venda e bancada</div>
+            <div class="td-sub">Pomadas, shampoos, produtos para revenda e consumo</div>
+          </td>
+          <td><span style="font-size:13px;color:#666;">Estoque inicial para revenda na barbearia + produtos de consumo interno. Investimento único para estruturar a bancada de produtos.</span></td>
+          <td class="td-type"><span class="tag tag-invest">Inicial</span></td>
+          <td class="td-value">R$ 2.500</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-name">📣 Investimento em anúncios</div>
+            <div class="td-sub">Meta Ads (Facebook + Instagram)</div>
+          </td>
+          <td><span style="font-size:13px;color:#666;">Campanha de aquisição de novos clientes via tráfego pago. Inclui campanhas de reconhecimento, captação de leads e promoção dos planos de assinatura.</span></td>
+          <td class="td-type"><span class="tag tag-fixed">Mensal</span></td>
+          <td class="td-value">R$ 800</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-name">⚙️ Custo de operação</div>
+            <div class="td-sub">Ferramentas, sistemas e suporte</div>
+          </td>
+          <td><span style="font-size:13px;color:#666;">Sistema de agendamento, criação de criativos, gerenciamento das campanhas, relatórios mensais e suporte contínuo da consultoria.</span></td>
+          <td class="td-type"><span class="tag tag-fixed">Mensal</span></td>
+          <td class="td-value">R$ 500</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-name">👤 Estagiário</div>
+            <div class="td-sub">Apoio operacional na barbearia</div>
+          </td>
+          <td><span style="font-size:13px;color:#666;">Recepção de clientes, agendamentos, organização e apoio ao barbeiro. Libera Willian para focar no atendimento e gestão.</span></td>
+          <td class="td-type"><span class="tag tag-fixed">Mensal</span></td>
+          <td class="td-value">R$ 1.200</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-name">💼 Comissão de consultoria</div>
+            <div class="td-sub">João Costa — Tráfego Qualificado</div>
+          </td>
+          <td><span style="font-size:13px;color:#666;">8% sobre o faturamento bruto mensal. Cobrado somente sobre o que efetivamente faturar — <strong>modelo orientado a resultado</strong>.</span></td>
+          <td class="td-type"><span class="tag tag-comissao">% Faturamento</span></td>
+          <td class="td-value" style="color:#e07000;">8% fat.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOTAIS -->
+  <div class="total-section">
+    <h3>📊 Resumo financeiro mensal</h3>
+    <div class="total-grid">
+      <div class="total-item">
+        <div class="t-label">Investimento inicial</div>
+        <div class="t-value">R$ 2.500</div>
+        <div class="t-sub">Produtos — pagamento único</div>
+      </div>
+      <div class="total-item destaque">
+        <div class="t-label">Total fixo mensal</div>
+        <div class="t-value">R$ 2.500</div>
+        <div class="t-sub">Anúncios + Operação + Estagiário</div>
+      </div>
+      <div class="total-item">
+        <div class="t-label">Comissão consultoria</div>
+        <div class="t-value">8%</div>
+        <div class="t-sub">Sobre faturamento bruto</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMISSAO EXEMPLOS -->
+  <div class="comissao-box">
+    <h3>💼 Como funciona a comissão de 8%</h3>
+    <div class="comissao-grid">
+      <div class="comissao-item">
+        <div class="faturamento">Se faturar</div>
+        <div class="valor-fat">R$ 8.000/mês</div>
+        <div class="comissao-val">R$ 640</div>
+        <div class="comissao-label">comissão (nível atual)</div>
+      </div>
+      <div class="comissao-item">
+        <div class="faturamento">Se faturar</div>
+        <div class="valor-fat">R$ 15.000/mês</div>
+        <div class="comissao-val">R$ 1.200</div>
+        <div class="comissao-label">comissão (meta 3 meses)</div>
+      </div>
+      <div class="comissao-item">
+        <div class="faturamento">Se faturar</div>
+        <div class="valor-fat">R$ 24.000/mês</div>
+        <div class="comissao-val">R$ 1.920</div>
+        <div class="comissao-label">comissão (faturamento histórico)</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#a07000;margin-top:16px;padding-top:12px;border-top:1px solid #fde0a0;">
+      ⚡ <strong>Mês 1 a 3:</strong> comissão inclusa no custo de operação de R$500. A partir do 4º mês, cobrada separadamente sobre o faturamento real.
+    </p>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="prazo-box">
+    <div class="section-title" style="margin-bottom:8px;">🗓️ Cronograma de implantação</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-label">Mês 1</div>
+        <div class="timeline-sub">Estruturação<br>Produtos na bancada<br>Campanha de lançamento</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-label">Mês 2</div>
+        <div class="timeline-sub">Otimização<br>Aumento de clientes<br>Lançar assinaturas</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-label">Mês 3</div>
+        <div class="timeline-sub">Escala<br>Contratar barbeiros<br>Meta R$15k/mês</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot inactive">4+</div>
+        <div class="timeline-label">Mês 4+</div>
+        <div class="timeline-sub">Retomada histórico<br>Meta R$24k/mês<br>3 barbeiros ativos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS RESUMO -->
+  <div class="section-title">📈 Por que vale o investimento</div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <div class="card-label">Capacidade ociosa</div>
+      <div class="card-title">3 estações disponíveis</div>
+      <div class="card-value">3x</div>
+      <div class="card-note">A barbearia tem estrutura para triplicar o faturamento sem precisar de obra ou mudança de espaço.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📉</div>
+      <div class="card-label">Faturamento perdido</div>
+      <div class="card-title">Queda de R$16k/mês</div>
+      <div class="card-value orange">-67%</div>
+      <div class="card-note">Caiu de R$24k para R$8k com a saída dos barbeiros. O investimento visa recuperar esse faturamento histórico.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-icon">🎯</div>
+      <div class="card-label">Ponto de equilíbrio</div>
+      <div class="card-title">Custo total mês 1</div>
+      <div class="card-value">~R$ 5.000</div>
+      <div class="card-note">Produtos + anúncios + operação + estagiário. Com ticket médio de R$50, precisamos de apenas 100 atendimentos para cobrir.</div>
+      <div class="card-badge">Realista em 30 dias</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <div class="card-label">Retorno esperado</div>
+      <div class="card-title">Faturamento meta</div>
+      <div class="card-value green">R$ 15k</div>
+      <div class="card-note">Meta conservadora para 90 dias, com contratação de 1 barbeiro e os planos de assinatura ativos.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <p class="assinatura">
+    <strong>João Costa — Tráfego Qualificado</strong>
+    Consultoria em Marketing Digital e Tráfego Pago
+  </p>
+</div>
+
+</body>
+</html>
