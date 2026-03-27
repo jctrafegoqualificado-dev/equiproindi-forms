@@ -38,7 +38,7 @@
 
         /* URGENCY BAR */
         .urgency-bar {
-            background: var(--primary);
+            background: #d97706;
             color: white;
             text-align: center;
             padding: 10px 16px;
@@ -399,7 +399,7 @@
         /* números */
         .cred-numbers {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
             margin-bottom: 56px;
         }
@@ -546,7 +546,7 @@
             <div class="hero-stats">
                 <div class="hero-stat"><div class="num" data-count="21" data-suffix="">21</div><div class="label">Anos de mercado</div></div>
                 <div class="hero-stat"><div class="num" data-count="100" data-suffix="%">100%</div><div class="label">CA garantido</div></div>
-                <div class="hero-stat"><div class="num" data-count="1" data-suffix="">1</div><div class="label">Fornecedor para tudo</div></div>
+                <div class="hero-stat"><div class="num" data-count="8" data-suffix="+">8+</div><div class="label">Estados com entrega</div></div>
                 <div class="hero-stat"><div class="num" data-count="24" data-suffix="h">24h</div><div class="label">Resposta orçamento</div></div>
             </div>
         </div>
@@ -575,8 +575,8 @@
                         <input type="tel" name="whatsapp" placeholder="(41) 99999-9999" required>
                     </div>
                     <div class="form-group">
-                        <label>Empresa</label>
-                        <input type="text" name="empresa" placeholder="Nome da empresa">
+                        <label>Empresa <span style="color:#dc2626">*</span></label>
+                        <input type="text" name="empresa" placeholder="Nome da empresa" required>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
@@ -622,65 +622,6 @@
     </div>
 </section>
 
-<!-- CARROSSEL HERO (movido para após credibilidade) -->
-<section class="hc-section" style="display:none" id="hcSectionOriginal">
-  <div class="hc-wrap" id="hcWrap">
-
-    <div class="hc-slide active">
-      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img1.jpg" alt="EPI frigorífico">
-      <div class="hc-overlay"></div>
-      <div class="hc-content">
-        <p class="hc-pre">Setor Alimentício &amp; Frigoríficos</p>
-        <h2 class="hc-title">EPI COMPLETO<br>PARA LINHA DE<br>PRODUÇÃO</h2>
-        <p class="hc-sub">Fornecimento direto do fabricante com CA garantido e entrega rastreada.</p>
-        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
-      </div>
-    </div>
-
-    <div class="hc-slide">
-      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img2.webp" alt="Proteção setor alimentício">
-      <div class="hc-overlay"></div>
-      <div class="hc-content">
-        <p class="hc-pre">Conformidade e Segurança</p>
-        <h2 class="hc-title">PROTEÇÃO<br>CERTIFICADA<br>PARA O SETOR</h2>
-        <p class="hc-sub">Produtos aprovados para auditorias MAPA e MTE. Sem surpresas na fiscalização.</p>
-        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
-      </div>
-    </div>
-
-    <div class="hc-slide">
-      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img3.png" alt="EPIs indústria alimentícia">
-      <div class="hc-overlay"></div>
-      <div class="hc-content">
-        <p class="hc-pre">21 Anos de Mercado</p>
-        <h2 class="hc-title">UM FORNECEDOR<br>PARA TUDO<br>QUE VOCÊ PRECISA</h2>
-        <p class="hc-sub">EPI, uniforme e confecção. Um pedido, uma nota, uma entrega.</p>
-        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
-      </div>
-    </div>
-
-    <div class="hc-slide">
-      <img src="https://jctrafegoqualificado-dev.github.io/equiproindi-forms/img/frigorifico/img4.png" alt="Uniformes e EPIs frigorífico">
-      <div class="hc-overlay"></div>
-      <div class="hc-content">
-        <p class="hc-pre">Entrega Rastreada</p>
-        <h2 class="hc-title">UNIFORMES E<br>EQUIPAMENTOS<br>HOMOLOGADOS</h2>
-        <p class="hc-sub">Resposta de orçamento em até 24h. Atendimento direto com o fabricante.</p>
-        <a href="#form" class="hc-btn">Solicitar Orçamento</a>
-      </div>
-    </div>
-
-  </div>
-
-  <button class="hc-arrow hc-prev" id="hcPrev">&#8249;</button>
-  <button class="hc-arrow hc-next" id="hcNext">&#8250;</button>
-  <div class="hc-dots" id="hcDots">
-    <span class="hc-dot active"></span>
-    <span class="hc-dot"></span>
-    <span class="hc-dot"></span>
-    <span class="hc-dot"></span>
-  </div>
-</section>
 
 <style>
 .hc-section {
@@ -690,13 +631,20 @@
   background: #000;
   line-height: 1;
 }
-.hc-wrap { position: relative; width: 100%; }
+.hc-wrap { position: relative; width: 100%; overflow: hidden; }
 .hc-slide {
-  display: none;
-  position: relative;
+  position: absolute;
+  top: 0; left: 0;
   width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
 }
-.hc-slide.active { display: block; }
+.hc-slide.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+}
 .hc-slide img {
   width: 100%;
   height: 460px;
@@ -942,6 +890,10 @@
             <div class="cred-num-card reveal reveal-delay-4">
                 <div class="big-num" data-count="48" data-suffix="h">48h</div>
                 <div class="big-label">Prazo máximo de despacho</div>
+            </div>
+            <div class="cred-num-card reveal reveal-delay-4">
+                <div class="big-num" data-count="8" data-suffix="+">8+</div>
+                <div class="big-label">Estados com entrega</div>
             </div>
         </div>
 
