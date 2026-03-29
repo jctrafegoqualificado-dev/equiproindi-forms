@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrutura de Campanhas Google Ads — Equiproindi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --jc: #1a1aff; --jc-dark: #0d0d1a; --jc-mid: #2d2de0;
+  --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --purple: #7c3aed;
+  --g50: #f8f9ff; --g100: #f0f0f8; --g200: #e0e0ef; --g500: #6b7280; --g900: #111827;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--g50); color: var(--g900); }
+
+/* HEADER */
+.header { background: var(--jc-dark); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; }
+.header h1 { font-size: 20px; font-weight: 900; color: #fff; }
+.header h1 span { color: var(--jc); }
+.header-meta { text-align: right; }
+.header-meta div { font-size: 12px; color: rgba(255,255,255,0.4); }
+.header-meta strong { font-size: 14px; color: rgba(255,255,255,0.8); }
+
+/* BUDGET STRIP */
+.budget-strip { background: linear-gradient(135deg, var(--jc) 0%, var(--jc-mid) 100%); padding: 20px 48px; display: flex; gap: 32px; align-items: center; }
+.bud-item { display: flex; flex-direction: column; }
+.bud-item .lbl { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; }
+.bud-item .val { font-size: 22px; font-weight: 900; color: #fff; }
+.bud-item .sub { font-size: 11px; color: rgba(255,255,255,0.5); }
+.bud-sep { width: 1px; background: rgba(255,255,255,0.15); height: 40px; }
+
+/* CONTAINER */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+
+/* SECTION */
+.sec-header { display: flex; align-items: center; gap: 14px; margin: 48px 0 20px; padding-bottom: 16px; border-bottom: 2px solid var(--g200); }
+.sec-header:first-of-type { margin-top: 0; }
+.sec-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; color: #fff; }
+.sec-header h2 { font-size: 19px; font-weight: 800; }
+.sec-header p { font-size: 13px; color: var(--g500); margin-top: 2px; }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+.card { background: #fff; border-radius: 14px; padding: 20px 22px; border: 1px solid var(--g200); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.card .c-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--g500); margin-bottom: 6px; }
+.card .c-val { font-size: 22px; font-weight: 800; color: var(--g900); }
+.card .c-sub { font-size: 12px; color: var(--g500); margin-top: 3px; }
+
+/* TABLE */
+.tbl-wrap { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid var(--g200); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 28px; }
+.tbl-title { padding: 16px 22px; background: var(--jc-dark); color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
+.tbl-title span { background: rgba(255,255,255,0.1); padding: 2px 10px; border-radius: 20px; font-size: 11px; }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 10px 16px; text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--g500); background: var(--g100); border-bottom: 1px solid var(--g200); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--g100); font-size: 13px; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--g50); }
+
+/* BADGE */
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+.badge.exact { background: #dbeafe; color: #1d4ed8; }
+.badge.phrase { background: #fef3c7; color: #92400e; }
+.badge.broad { background: #f3e8ff; color: #6d28d9; }
+.badge.neg { background: #fee2e2; color: #b91c1c; }
+.badge.green { background: #dcfce7; color: #15803d; }
+.badge.blue { background: #eff6ff; color: #1d4ed8; }
+.badge.orange { background: #fff7ed; color: #c2410c; }
+
+/* COPY BOX */
+.copy-box { background: var(--g100); border: 1px solid var(--g200); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+.copy-box .cb-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--g500); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+.copy-box .cb-label span { background: var(--jc); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 10px; }
+.copy-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.copy-box ul li { font-size: 13px; color: var(--g900); padding: 8px 12px; background: #fff; border-radius: 7px; border: 1px solid var(--g200); display: flex; align-items: flex-start; gap: 8px; }
+.copy-box ul li .idx { font-size: 10px; font-weight: 700; color: var(--jc); background: var(--g100); padding: 2px 6px; border-radius: 5px; flex-shrink: 0; min-width: 22px; text-align: center; margin-top: 1px; }
+.copy-box ul li .char { font-size: 10px; color: var(--g500); margin-left: auto; flex-shrink: 0; }
+.copy-box ul li .char.ok { color: var(--green); }
+.copy-box ul li .char.warn { color: var(--yellow); }
+
+/* GROUPS */
+.groups-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 24px; }
+.group-card { background: #fff; border-radius: 14px; border: 1px solid var(--g200); overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.group-head { padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+.group-head .gh-icon { font-size: 20px; }
+.group-head .gh-name { font-size: 14px; font-weight: 700; }
+.group-head .gh-vol { font-size: 11px; color: var(--g500); margin-left: auto; }
+.group-body { padding: 4px 18px 14px; }
+.kw-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--g100); font-size: 12px; }
+.kw-item:last-child { border-bottom: none; }
+.kw-text { flex: 1; color: var(--g900); }
+
+/* EXTENSIONS */
+.ext-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 24px; }
+.ext-card { background: #fff; border-radius: 12px; border: 1px solid var(--g200); padding: 18px 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
+.ext-card .et { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--jc); margin-bottom: 10px; }
+.ext-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.ext-card ul li { font-size: 12px; color: var(--g900); padding: 6px 10px; background: var(--g50); border-radius: 6px; border: 1px solid var(--g200); }
+
+/* CONFIG BOX */
+.cfg { background: #fff; border-radius: 14px; border: 1px solid var(--g200); padding: 24px 26px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.cfg-title { font-size: 13px; font-weight: 700; color: var(--g900); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--g200); }
+.cfg-row { display: flex; align-items: flex-start; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--g100); font-size: 13px; }
+.cfg-row:last-child { border-bottom: none; }
+.cfg-key { font-weight: 600; color: var(--g500); min-width: 200px; flex-shrink: 0; }
+.cfg-val { color: var(--g900); }
+.cfg-val code { background: var(--g100); padding: 2px 7px; border-radius: 5px; font-family: monospace; font-size: 12px; }
+
+/* ALERT */
+.alert { border-radius: 12px; padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+.alert.red { background: #fef2f2; border-left: 4px solid var(--red); }
+.alert.yellow { background: #fffbeb; border-left: 4px solid var(--yellow); }
+.alert.blue { background: #eff6ff; border-left: 4px solid var(--jc); }
+.alert.green { background: #f0fdf4; border-left: 4px solid var(--green); }
+.alert strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.alert span { font-size: 12px; color: var(--g500); line-height: 1.6; }
+
+/* CHECKLIST */
+.checklist { background: #fff; border-radius: 14px; border: 1px solid var(--g200); padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 24px; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--g100); }
+.check-item:last-child { border-bottom: none; }
+.check-box { width: 20px; height: 20px; border: 2px solid var(--g200); border-radius: 5px; flex-shrink: 0; margin-top: 1px; }
+.check-item .ch-title { font-size: 13px; font-weight: 600; color: var(--g900); }
+.check-item .ch-sub { font-size: 11px; color: var(--g500); margin-top: 2px; }
+
+/* FOOTER */
+.footer { background: var(--jc-dark); color: rgba(255,255,255,0.3); text-align: center; font-size: 12px; padding: 20px; }
+.footer span { color: var(--jc); }
+
+@media (max-width: 768px) {
+  .header, .budget-strip, .container { padding-left: 20px; padding-right: 20px; }
+  .cards, .groups-grid, .ext-grid { grid-template-columns: 1fr; }
+  .budget-strip { flex-wrap: wrap; gap: 16px; }
+}
+@media print {
+  body { background: #fff; }
+  .tbl-title { background: #333 !important; -webkit-print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Google Ads — <span>Equiproindi</span></h1>
+    <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px">Estrutura completa pronta para go-live</div>
+  </div>
+  <div class="header-meta">
+    <strong>Budget total: R$ 1.000/mês</strong>
+    <div>Elaborado por João Costa · Março 2026</div>
+  </div>
+</div>
+
+<!-- BUDGET STRIP -->
+<div class="budget-strip">
+  <div class="bud-item">
+    <span class="lbl">Search Alimentício</span>
+    <span class="val">R$ 600</span>
+    <span class="sub">60% do orçamento</span>
+  </div>
+  <div class="bud-sep"></div>
+  <div class="bud-item">
+    <span class="lbl">Remarketing Display</span>
+    <span class="val">R$ 150</span>
+    <span class="sub">15% — ativar semana 3</span>
+  </div>
+  <div class="bud-sep"></div>
+  <div class="bud-item">
+    <span class="lbl">Campanha Marca</span>
+    <span class="val">R$ 100</span>
+    <span class="sub">10% — branded terms</span>
+  </div>
+  <div class="bud-sep"></div>
+  <div class="bud-item">
+    <span class="lbl">Reserva Estratégica</span>
+    <span class="val">R$ 150</span>
+    <span class="sub">Testes e escala</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ALERTA PRÉ-REQUISITO -->
+<div style="margin-bottom:36px;margin-top:8px">
+  <div class="alert red">
+    <div>⛔</div>
+    <div><strong>Pausar PMax Tray antes do go-live</strong><span>Google Ads → Campanhas → PMax Tray → pausar. CPA de R$748 está queimando R$2.992/mês. O orçamento liberado realoca para Search Alimentício.</span></div>
+  </div>
+  <div class="alert yellow">
+    <div>⚠️</div>
+    <div><strong>Configurar tag de conversão no GTM antes de ativar</strong><span>GTM-WCNMGMGJ instalado. Criar tag de conversão vinculada ao evento form_submit da LP. Sem isso o Smart Bidding não otimiza.</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CAMPANHA 1 — SEARCH ALIMENTÍCIO
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-icon" style="background:var(--jc)">🔍</div>
+  <div>
+    <h2>Campanha 1 — Search Alimentício Nacional</h2>
+    <p>R$ 600/mês · 6 grupos de anúncio · foco em intenção de compra</p>
+  </div>
+</div>
+
+<!-- CONFIG -->
+<div class="cfg">
+  <div class="cfg-title">⚙️ Configurações da Campanha</div>
+  <div class="cfg-row"><span class="cfg-key">Nome</span><span class="cfg-val"><code>EPI Alimentício — Search Nacional</code></span></div>
+  <div class="cfg-row"><span class="cfg-key">Tipo</span><span class="cfg-val">Rede de Pesquisa (Search)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Objetivo</span><span class="cfg-val">Leads (formulário da LP)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Estratégia de lance</span><span class="cfg-val">Maximizar conversões → após 30 conversões: CPA desejado R$ 80–120</span></div>
+  <div class="cfg-row"><span class="cfg-key">Budget diário</span><span class="cfg-val"><code>R$ 20,00/dia</code> (R$600/mês)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Localização</span><span class="cfg-val">Brasil inteiro · todos os estados</span></div>
+  <div class="cfg-row"><span class="cfg-key">Idioma</span><span class="cfg-val">Português</span></div>
+  <div class="cfg-row"><span class="cfg-key">Rotação de anúncios</span><span class="cfg-val">Otimizar: preferir anúncios com melhor desempenho</span></div>
+  <div class="cfg-row"><span class="cfg-key">Horário</span><span class="cfg-val">Segunda a sexta 07h–19h · Sábado 08h–13h</span></div>
+  <div class="cfg-row"><span class="cfg-key">URL final</span><span class="cfg-val"><code>https://jctrafegoqualificado-dev.github.io/equiproindi-forms/lp-alimenticio.html</code></span></div>
+  <div class="cfg-row"><span class="cfg-key">Acompanhamento de conversão</span><span class="cfg-val">Evento GTM: <code>form_submit</code> → Google Ads Conversion Tag</span></div>
+</div>
+
+<!-- GRUPOS DE ANÚNCIO -->
+<div class="tbl-wrap" style="margin-bottom:8px">
+  <div class="tbl-title">📁 Grupos de Anúncio <span>6 grupos</span></div>
+</div>
+<div class="groups-grid">
+
+  <div class="group-card">
+    <div class="group-head" style="background:#eff6ff;border-bottom:1px solid #dbeafe">
+      <span class="gh-icon">🥩</span>
+      <span class="gh-name">EPI Frigorífico</span>
+      <span class="gh-vol" style="color:#1d4ed8;font-weight:700">Principal</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[EPI frigorífico]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">[fornecedor EPI frigorífico]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI para frigorífico"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[avental frigorífico]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"bota PVC frigorífico"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[EPI setor frigorífico]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">equipamento proteção frigorífico</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+  <div class="group-card">
+    <div class="group-head" style="background:#f0fdf4;border-bottom:1px solid #bbf7d0">
+      <span class="gh-icon">🛡️</span>
+      <span class="gh-name">CA Garantido</span>
+      <span class="gh-vol">Alta intenção</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[EPI com CA]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI certificado CA"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[fornecedor EPI CA garantido]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"comprar EPI CA válido"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[EPI certificado alimentício]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">EPI CA auditoria MAPA</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+  <div class="group-card">
+    <div class="group-head" style="background:#fefce8;border-bottom:1px solid #fef08a">
+      <span class="gh-icon">🏭</span>
+      <span class="gh-name">Setor Alimentício Geral</span>
+      <span class="gh-vol">Volume alto</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[EPI setor alimentício]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI indústria alimentícia"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">"fornecedor EPI alimentício"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[equipamento proteção alimentício]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI processadora alimentos"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">EPI abatedouro bovino</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+  <div class="group-card">
+    <div class="group-head" style="background:#f0f9ff;border-bottom:1px solid #bae6fd">
+      <span class="gh-icon">❄️</span>
+      <span class="gh-name">Câmara Fria</span>
+      <span class="gh-vol">Ticket alto</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[EPI câmara fria]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"roupa câmara fria frigorífico"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[uniforme câmara fria]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"proteção câmara fria"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[kit EPI câmara fria]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">EPI trabalho frio industrial</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+  <div class="group-card">
+    <div class="group-head" style="background:#fdf4ff;border-bottom:1px solid #e9d5ff">
+      <span class="gh-icon">👕</span>
+      <span class="gh-name">Uniformes Industriais</span>
+      <span class="gh-vol">Cross-sell</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[uniforme frigorífico]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"uniforme personalizado frigorífico"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[confecção uniforme industrial]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"uniforme EPI frigorífico"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[avental personalizado alimentício]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">uniforme trabalho setor alimentício</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+  <div class="group-card">
+    <div class="group-head" style="background:#fff7ed;border-bottom:1px solid #fed7aa">
+      <span class="gh-icon">🧀</span>
+      <span class="gh-name">Laticínios e Abatedouros</span>
+      <span class="gh-vol">Expansão</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[EPI laticínio]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI para laticínio"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[fornecedor EPI abatedouro]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"EPI processadora carne"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[EPI agroindústria]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">EPI indústria laticínio leite</span><span class="badge broad">Ampla mod.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NEGATIVOS -->
+<div class="tbl-wrap" style="margin-bottom:28px">
+  <div class="tbl-title">🚫 Lista de Palavras Negativas — Campanha <span>Nível campanha</span></div>
+  <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px">
+    <span class="badge neg">grátis</span><span class="badge neg">gratuito</span><span class="badge neg">emprego</span>
+    <span class="badge neg">vaga</span><span class="badge neg">currículo</span><span class="badge neg">concurso</span>
+    <span class="badge neg">como fazer</span><span class="badge neg">passo a passo</span><span class="badge neg">DIY</span>
+    <span class="badge neg">usado</span><span class="badge neg">segunda mão</span><span class="badge neg">seminovo</span>
+    <span class="badge neg">aluguel</span><span class="badge neg">manual</span><span class="badge neg">norma</span>
+    <span class="badge neg">NR 6</span><span class="badge neg">regulamentação</span><span class="badge neg">o que é EPI</span>
+    <span class="badge neg">significado</span><span class="badge neg">treinamento</span><span class="badge neg">curso</span>
+    <span class="badge neg">certificação pessoal</span><span class="badge neg">receita</span><span class="badge neg">freelancer</span>
+    <span class="badge neg">equiproindi concorrente</span>
+  </div>
+</div>
+
+<!-- RSA -->
+<div class="copy-box">
+  <div class="cb-label">RSA — Headlines <span>15 de 15 preenchidas</span></div>
+  <ul>
+    <li><span class="idx">H1</span> EPI para Frigoríficos com CA Garantido <span class="char ok">34 ✓</span></li>
+    <li><span class="idx">H2</span> Fornecedor EPI Setor Alimentício <span class="char ok">32 ✓</span></li>
+    <li><span class="idx">H3</span> EPI + Uniforme no Mesmo Pedido <span class="char ok">30 ✓</span></li>
+    <li><span class="idx">H4</span> 21 Anos Atendendo Frigoríficos <span class="char ok">30 ✓</span></li>
+    <li><span class="idx">H5</span> Entrega em Até 15 Dias — Todo Brasil <span class="char ok">36 ✓</span></li>
+    <li><span class="idx">H6</span> Orçamento em 24h — Direto do Fabricante <span class="char ok">38 ✓</span></li>
+    <li><span class="idx">H7</span> CA Válido em Todos os EPIs <span class="char ok">27 ✓</span></li>
+    <li><span class="idx">H8</span> Zero Problemas em Auditoria MAPA <span class="char ok">34 ✓</span></li>
+    <li><span class="idx">H9</span> Avental, Bota PVC e Luvas com CA <span class="char ok">33 ✓</span></li>
+    <li><span class="idx">H10</span> EPI Câmara Fria com Entrega Rastreada <span class="char ok">37 ✓</span></li>
+    <li><span class="idx">H11</span> Uniforme + EPI: 1 Pedido, 1 Nota <span class="char ok">33 ✓</span></li>
+    <li><span class="idx">H12</span> Sem Intermediário — Preço de Fábrica <span class="char ok">36 ✓</span></li>
+    <li><span class="idx">H13</span> Equiproindi: Fabricante Especializado <span class="char ok">36 ✓</span></li>
+    <li><span class="idx">H14</span> Atendimento Direto com o Fabricante <span class="char ok">36 ✓</span></li>
+    <li><span class="idx">H15</span> Solicite Orçamento — Resposta em 24h <span class="char ok">37 ✓</span></li>
+  </ul>
+</div>
+
+<div class="copy-box">
+  <div class="cb-label">RSA — Descrições <span>4 de 4 preenchidas</span></div>
+  <ul>
+    <li><span class="idx">D1</span> Fornecedor especializado em EPI e uniformes para frigoríficos, laticínios e processadoras. CA garantido em todos os produtos. Orçamento em 24h. <span class="char ok">148 ✓</span></li>
+    <li><span class="idx">D2</span> 21 anos atendendo o setor alimentício. EPI, uniforme e confecção no mesmo pedido. Entrega rastreada para todo o Brasil em até 15 dias úteis. <span class="char ok">145 ✓</span></li>
+    <li><span class="idx">D3</span> Sem surpresas em auditoria do MAPA ou MTE. Todos os EPIs com Certificado de Aprovação válido. Solicite orçamento direto com o fabricante. <span class="char ok">146 ✓</span></li>
+    <li><span class="idx">D4</span> Um pedido, uma nota fiscal, um fornecedor. EPI + uniforme personalizado com entrega rastreada. Fale agora pelo WhatsApp ou formulário. <span class="char ok">143 ✓</span></li>
+  </ul>
+</div>
+
+<!-- EXTENSÕES -->
+<div class="tbl-wrap" style="margin-bottom:8px">
+  <div class="tbl-title">🔗 Extensões de Anúncio</div>
+</div>
+<div class="ext-grid">
+  <div class="ext-card">
+    <div class="et">Sitelinks (4)</div>
+    <ul>
+      <li>📋 Solicitar Orçamento | Resposta em até 24h</li>
+      <li>❄️ EPIs para Câmara Fria | Proteção certificada</li>
+      <li>👕 Uniformes Personalizados | Entrega nacional</li>
+      <li>📦 Catálogo Completo | +200 SKUs disponíveis</li>
+    </ul>
+  </div>
+  <div class="ext-card">
+    <div class="et">Callouts (6)</div>
+    <ul>
+      <li>✅ CA Garantido em Todos os EPIs</li>
+      <li>🚚 Entrega em até 15 dias úteis</li>
+      <li>🏭 Fabricante Direto — Sem Intermediário</li>
+      <li>📅 21 Anos no Setor Alimentício</li>
+      <li>⚡ Orçamento em 24h</li>
+      <li>📞 Atendimento Personalizado</li>
+    </ul>
+  </div>
+  <div class="ext-card">
+    <div class="et">Structured Snippets — Tipos de EPI</div>
+    <ul>
+      <li>Avental Frigorífico</li>
+      <li>Bota PVC Industrial</li>
+      <li>Luvas de Nitrila / Malha</li>
+      <li>Touca Higiênica CA</li>
+      <li>Kit Câmara Fria</li>
+      <li>Uniforme Personalizado</li>
+    </ul>
+  </div>
+  <div class="ext-card">
+    <div class="et">Extensão de Local / Chamada</div>
+    <ul>
+      <li>📍 Curitiba — PR (matriz)</li>
+      <li>📞 (41) 3346-8136</li>
+      <li>💬 WhatsApp: (41) 3346-8136</li>
+      <li>🕐 Seg–Sex 08h–18h · Sáb 08h–12h</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     CAMPANHA 2 — MARCA
+══════════════════════════════════════ -->
+<div class="sec-header" style="margin-top:56px">
+  <div class="sec-icon" style="background:var(--green)">🏷️</div>
+  <div>
+    <h2>Campanha 2 — Marca (Branded)</h2>
+    <p>R$ 100/mês · proteger branded terms contra concorrentes</p>
+  </div>
+</div>
+
+<div class="cfg">
+  <div class="cfg-title">⚙️ Configurações da Campanha</div>
+  <div class="cfg-row"><span class="cfg-key">Nome</span><span class="cfg-val"><code>Marca — Equiproindi</code></span></div>
+  <div class="cfg-row"><span class="cfg-key">Tipo</span><span class="cfg-val">Rede de Pesquisa (Search)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Estratégia de lance</span><span class="cfg-val">CPC manual → <code>R$ 1,50 lance máximo</code> (CPC baixo — branded)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Budget diário</span><span class="cfg-val"><code>R$ 3,30/dia</code> (R$100/mês)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Localização</span><span class="cfg-val">Brasil inteiro</span></div>
+  <div class="cfg-row"><span class="cfg-key">URL final</span><span class="cfg-val"><code>https://jctrafegoqualificado-dev.github.io/equiproindi-forms/lp-alimenticio.html</code></span></div>
+</div>
+
+<div class="groups-grid" style="grid-template-columns:1fr">
+  <div class="group-card">
+    <div class="group-head" style="background:#f0fdf4;border-bottom:1px solid #bbf7d0">
+      <span class="gh-icon">🏷️</span>
+      <span class="gh-name">Grupo: Marca Equiproindi</span>
+    </div>
+    <div class="group-body">
+      <div class="kw-item"><span class="kw-text">[equiproindi]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"equiproindi"</span><span class="badge phrase">Frase</span></div>
+      <div class="kw-item"><span class="kw-text">[equip roindi]</span><span class="badge exact">Exata — variação ortográfica</span></div>
+      <div class="kw-item"><span class="kw-text">[equiproindi EPI]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">[equiproindi uniformes]</span><span class="badge exact">Exata</span></div>
+      <div class="kw-item"><span class="kw-text">"site equiproindi"</span><span class="badge phrase">Frase</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-box">
+  <div class="cb-label">RSA Marca — Headlines <span>5 headlines</span></div>
+  <ul>
+    <li><span class="idx">H1</span> Equiproindi — Site Oficial <span class="char ok">25 ✓</span></li>
+    <li><span class="idx">H2</span> EPI e Uniformes — Equiproindi <span class="char ok">30 ✓</span></li>
+    <li><span class="idx">H3</span> 21 Anos no Setor Alimentício <span class="char ok">29 ✓</span></li>
+    <li><span class="idx">H4</span> Fabricante Direto — Orçamento em 24h <span class="char ok">36 ✓</span></li>
+    <li><span class="idx">H5</span> CA Garantido · Entrega Nacional <span class="char ok">31 ✓</span></li>
+  </ul>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     CAMPANHA 3 — REMARKETING DISPLAY
+══════════════════════════════════════ -->
+<div class="sec-header" style="margin-top:56px">
+  <div class="sec-icon" style="background:var(--purple)">🎯</div>
+  <div>
+    <h2>Campanha 3 — Remarketing Display</h2>
+    <p>R$ 150/mês · ativar após 7 dias de tráfego na LP · reengajar visitantes</p>
+  </div>
+</div>
+
+<div class="alert yellow" style="margin-bottom:20px">
+  <div>⏳</div>
+  <div><strong>Ativar somente na Semana 3</strong><span>Remarketing precisa de audiência mínima. Aguardar 7 dias de tráfego da campanha Search para ter volume suficiente (mín. 100 visitantes).</span></div>
+</div>
+
+<div class="cfg">
+  <div class="cfg-title">⚙️ Configurações da Campanha</div>
+  <div class="cfg-row"><span class="cfg-key">Nome</span><span class="cfg-val"><code>Remarketing Display — Alimentício</code></span></div>
+  <div class="cfg-row"><span class="cfg-key">Tipo</span><span class="cfg-val">Rede de Display — Remarketing</span></div>
+  <div class="cfg-row"><span class="cfg-key">Estratégia de lance</span><span class="cfg-val">CPC desejado <code>R$ 0,50–1,20</code> (Display é barato)</span></div>
+  <div class="cfg-row"><span class="cfg-key">Budget diário</span><span class="cfg-val"><code>R$ 5,00/dia</code> (R$150/mês)</span></div>
+  <div class="cfg-row"><span class="cfg-key">URL final</span><span class="cfg-val"><code>https://jctrafegoqualificado-dev.github.io/equiproindi-forms/lp-alimenticio.html</code></span></div>
+</div>
+
+<div class="tbl-wrap" style="margin-bottom:20px">
+  <div class="tbl-title">👥 Audiências de Remarketing</div>
+  <table>
+    <thead><tr><th>Audiência</th><th>Janela</th><th>Como criar</th><th>Prioridade</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Visitantes LP — Recentes</strong></td><td>7 dias</td><td>Google Ads → Audiências → Visitantes do site → URL contém <code>lp-alimenticio</code></td><td><span class="badge green">Alta</span></td></tr>
+      <tr><td><strong>Visitantes LP — Gerais</strong></td><td>30 dias</td><td>Mesma URL — janela 30 dias</td><td><span class="badge blue">Média</span></td></tr>
+      <tr><td><strong>Não converteram</strong></td><td>30 dias</td><td>Visitantes LP <strong>menos</strong> quem ativou evento form_submit</td><td><span class="badge green">Alta</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="copy-box">
+  <div class="cb-label">Anúncios Display Adaptáveis — Textos</div>
+  <ul>
+    <li><span class="idx">T1</span> <strong>Headline curta:</strong> EPI com CA Garantido</li>
+    <li><span class="idx">T2</span> <strong>Headline curta:</strong> Orçamento em 24h</li>
+    <li><span class="idx">T3</span> <strong>Headline longa:</strong> EPI para Frigoríficos — Entrega em 15 Dias para Todo o Brasil</li>
+    <li><span class="idx">T4</span> <strong>Descrição 1:</strong> CA garantido em todos os EPIs. 21 anos atendendo frigoríficos, laticínios e processadoras. Fabricante direto.</li>
+    <li><span class="idx">T5</span> <strong>Descrição 2:</strong> Você visitou nossa página e ainda não pediu orçamento. Solicite agora e receba proposta em 24h com entrega rastreada.</li>
+  </ul>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     CHECKLIST DE GO-LIVE
+══════════════════════════════════════ -->
+<div class="sec-header" style="margin-top:56px">
+  <div class="sec-icon" style="background:var(--red)">✅</div>
+  <div>
+    <h2>Checklist de Go-Live</h2>
+    <p>Marque cada item antes de ativar as campanhas</p>
+  </div>
+</div>
+
+<div class="checklist">
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">PMax Tray pausada</div><div class="ch-sub">Google Ads → Campanhas → PMax Tray → Status: Pausado</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Tag de conversão configurada no GTM</div><div class="ch-sub">Evento form_submit → Google Ads Conversion Action → publicar container GTM-WCNMGMGJ</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Conversão testada na LP</div><div class="ch-sub">Preencher formulário da LP e confirmar que conversão aparece em Google Ads → Ferramentas → Conversões</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">URL final funcionando</div><div class="ch-sub">Testar link da LP no mobile e desktop. Confirmar que formulário envia normalmente.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Campanha Search Alimentício criada e aprovada</div><div class="ch-sub">Aguardar aprovação dos anúncios (geralmente 1 dia útil)</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Campanha de Marca criada e aprovada</div><div class="ch-sub">Aprovação costuma ser mais rápida para branded terms</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Remarketing Display — aguardar Semana 3</div><div class="ch-sub">Criar audiência agora mas só ativar após 100+ visitantes na LP</div></div>
+  </div>
+  <div class="check-item">
+    <div class="check-box"></div>
+    <div><div class="ch-title">Método de pagamento ativo na conta Google Ads</div><div class="ch-sub">Confirmar que há saldo ou cartão ativo para não pausar as campanhas por falta de pagamento</div></div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  © 2026 <span>JC Tráfego Qualificado</span> · João Costa · Estrutura Google Ads — Equiproindi
+</div>
+
+</body>
+</html>
