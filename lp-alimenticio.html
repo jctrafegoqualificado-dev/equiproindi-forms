@@ -1431,13 +1431,27 @@
   });
 
   // Gatilho 1: exit intent — desativado
-  // Gatilho 2: 45 segundos de inatividade
-  var idleTimer = setTimeout(openPopup, 45000);
-  ['mousemove','scroll','keydown','touchstart'].forEach(function(ev){
-    document.addEventListener(ev, function(){
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(openPopup, 45000);
-    }, { passive: true });
+  // Gatilho 2: 45s de inatividade, mas SÓ após o usuário ter rolado 40% da página
+  var scrolledEnough = false;
+  var idleTimer = null;
+
+  function resetIdleTimer() {
+    if (!scrolledEnough) return;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(openPopup, 45000);
+  }
+
+  document.addEventListener('scroll', function() {
+    var scrolled = window.scrollY + window.innerHeight;
+    var total    = document.documentElement.scrollHeight;
+    if (!scrolledEnough && scrolled / total >= 0.40) {
+      scrolledEnough = true;
+    }
+    resetIdleTimer();
+  }, { passive: true });
+
+  ['mousemove','keydown','touchstart'].forEach(function(ev){
+    document.addEventListener(ev, resetIdleTimer, { passive: true });
   });
 
   // Countdown
