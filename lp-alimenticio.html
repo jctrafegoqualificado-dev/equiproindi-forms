@@ -1430,28 +1430,15 @@
     if (e.target === overlay) closePopup();
   });
 
-  // Gatilho 1: exit intent — desativado
-  // Gatilho 2: 45s de inatividade, mas SÓ após o usuário ter rolado 40% da página
-  var scrolledEnough = false;
-  var idleTimer = null;
+  // Exit intent: abre quando mouse sai pelo topo da janela
+  // Aguarda 5s antes de habilitar (evita disparo acidental no carregamento)
+  var exitEnabled = false;
+  setTimeout(function() { exitEnabled = true; }, 5000);
 
-  function resetIdleTimer() {
-    if (!scrolledEnough) return;
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(openPopup, 45000);
-  }
-
-  document.addEventListener('scroll', function() {
-    var scrolled = window.scrollY + window.innerHeight;
-    var total    = document.documentElement.scrollHeight;
-    if (!scrolledEnough && scrolled / total >= 0.40) {
-      scrolledEnough = true;
+  document.addEventListener('mouseleave', function(e) {
+    if (exitEnabled && e.clientY <= 0) {
+      openPopup();
     }
-    resetIdleTimer();
-  }, { passive: true });
-
-  ['mousemove','keydown','touchstart'].forEach(function(ev){
-    document.addEventListener(ev, resetIdleTimer, { passive: true });
   });
 
   // Countdown
