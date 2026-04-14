@@ -1431,12 +1431,15 @@
   });
 
   // Exit intent: abre quando mouse sai pelo topo da janela
-  // Aguarda 5s antes de habilitar (evita disparo acidental no carregamento)
-  var exitEnabled = false;
-  setTimeout(function() { exitEnabled = true; }, 5000);
+  // Só dispara se o mouse tiver ENTRADO na página antes (evita falso positivo no refresh)
+  var mouseEnteredPage = false;
+
+  document.addEventListener('mouseenter', function() {
+    mouseEnteredPage = true;
+  }, { once: true });
 
   document.addEventListener('mouseleave', function(e) {
-    if (exitEnabled && e.clientY <= 0) {
+    if (mouseEnteredPage && e.clientY <= 0) {
       openPopup();
     }
   });
