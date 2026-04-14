@@ -1430,18 +1430,15 @@
     if (e.target === overlay) closePopup();
   });
 
-  // Exit intent: abre quando mouse sai pelo topo da janela
-  // Só dispara se o mouse tiver ENTRADO na página antes (evita falso positivo no refresh)
-  var mouseEnteredPage = false;
+  // Exit intent: só habilita depois que o cursor esteve abaixo de 100px (dentro da página de verdade)
+  var exitReady = false;
 
-  document.addEventListener('mouseenter', function() {
-    mouseEnteredPage = true;
-  }, { once: true });
+  document.addEventListener('mousemove', function(e) {
+    if (!exitReady && e.clientY > 100) exitReady = true;
+  }, { passive: true });
 
   document.addEventListener('mouseleave', function(e) {
-    if (mouseEnteredPage && e.clientY <= 0) {
-      openPopup();
-    }
+    if (exitReady && e.clientY <= 0) openPopup();
   });
 
   // Countdown
