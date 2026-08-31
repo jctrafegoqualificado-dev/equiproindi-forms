@@ -1033,34 +1033,162 @@
 </a>
 
 <script>
+    /* ══ CRM — CAPTURA DE ORIGEM ══
+       Guarda de onde o lead veio (gclid/UTM), gera um código curto e
+       carimba esse código em todo link de WhatsApp da página. É esse
+       código que amarra, lá no CRM, a conversa do WhatsApp à campanha
+       e à palavra-chave que pagaram por ela. */
+    (function() {
+        var ENDPOINT  = '';            /* Web App do Apps Script — Fase 2 */
+        var LP        = 'lp_alimenticio';
+        var CHAVE_ORI = 'equip_origem';
+        var CHAVE_ID  = 'equip_lead_id';
+        var TTL_DIAS  = 30;
+
+        function param(nome) {
+            var m = new RegExp('[?&]' + nome + '=([^&#]*)').exec(location.search);
+            return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+        }
+
+        function guardado(chave) {
+            try { return JSON.parse(localStorage.getItem(chave)); } catch (e) { return null; }
+        }
+
+        /* Primeiro toque: o gclid da PRIMEIRA visita é o que o Google Ads
+           aceita na importação de conversão offline. Uma visita direta
+           posterior não pode apagar o clique pago que trouxe a pessoa. */
+        function origem() {
+            var antiga = guardado(CHAVE_ORI);
+            var viva   = antiga && (Date.now() - antiga.ts) < TTL_DIAS * 864e5;
+
+            var nova = {
+                ts:           Date.now(),
+                gclid:        param('gclid') || param('gbraid') || param('wbraid'),
+                utm_source:   param('utm_source'),
+                utm_medium:   param('utm_medium'),
+                utm_campaign: param('utm_campaign'),
+                utm_term:     param('utm_term'),
+                utm_content:  param('utm_content'),
+                referrer:     document.referrer || '(direto)',
+                landing:      location.pathname
+            };
+
+            if (!nova.gclid && !nova.utm_source && viva) return antiga;
+            try { localStorage.setItem(CHAVE_ORI, JSON.stringify(nova)); } catch (e) {}
+            return nova;
+        }
+
+        function codigo() {
+            var id = null;
+            try { id = localStorage.getItem(CHAVE_ID); } catch (e) {}
+            if (!id) {
+                id = 'EQ-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+                try { localStorage.setItem(CHAVE_ID, id); } catch (e) {}
+            }
+            return id;
+        }
+
+        var crm = window.EQUIP_CRM = {
+            lp:     LP,
+            lead:   codigo(),
+            origem: origem()
+        };
+
+        /* Nada aqui pode travar o lead: endpoint vazio, offline ou fora do
+           ar, o formulário e o WhatsApp seguem funcionando igual. */
+        crm.enviar = function(tipo, dados) {
+            if (!ENDPOINT) return;
+            var corpo = JSON.stringify({
+                tipo: tipo, lead_id: crm.lead, lp: LP,
+                origem: crm.origem, url: location.href, dados: dados || {}
+            });
+            try {
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(ENDPOINT, new Blob([corpo], { type: 'text/plain' }));
+                } else {
+                    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: corpo });
+                }
+            } catch (e) {}
+        };
+
+        /* Carimba no clique, não no carregamento: pega também os links que
+           só existem depois (popup do cupom, tela de sucesso). Fase de
+           captura, então o href já vai alterado para a navegação. */
+        document.addEventListener('click', function(ev) {
+            var a = ev.target && ev.target.closest ? ev.target.closest('a[href*="wa.me"]') : null;
+            if (!a || a.dataset.crm) return;
+            a.dataset.crm = '1';
+
+            var sep = a.href.indexOf('?')     === -1 ? '?text='
+                    : a.href.indexOf('text=') === -1 ? '&text=' : '';
+            a.href += sep + encodeURIComponent(' [' + crm.lead + ']');
+
+            if (window.dataLayer) {
+                window.dataLayer.push({
+                    event: 'whatsapp_click', form: LP,
+                    lead_id: crm.lead, gclid: crm.origem.gclid || ''
+                });
+            }
+            crm.enviar('clique_whatsapp', { botao: a.className || 'link' });
+        }, true);
+    })();
+
     /* ── FORM SUBMIT ── */
     document.getElementById('orcamento-form').addEventListener('submit', function(e) {
-        var form = this;
-        var whatsapp  = form.querySelector('[name="whatsapp"]').value;
-        var empresa   = form.querySelector('[name="empresa"]').value;
-        var obs       = form.querySelector('[name="observacao"]') ? form.querySelector('[name="observacao"]').value : '';
+        /* Obrigatório: sem isso o navegador sai da página para o Formspree
+           e cancela tela de sucesso, WhatsApp e rastreamento. */
+        e.preventDefault();
+
+        var form     = this;
+        var crm      = window.EQUIP_CRM;
+        var whatsapp = form.querySelector('[name="whatsapp"]').value;
+        var empresa  = form.querySelector('[name="empresa"]').value;
+        var qtd      = form.querySelector('[name="quantidade"]') ? form.querySelector('[name="quantidade"]').value : '';
+        var obs      = form.querySelector('[name="observacao"]') ? form.querySelector('[name="observacao"]').value : '';
 
         document.getElementById('btn-text').textContent = 'Enviando...';
         document.getElementById('btn-icon').className = 'fas fa-spinner fa-spin';
 
-        setTimeout(function() {
+        var msg = '🛡️ *Novo pedido de orçamento — EPI Setor Alimentício*\n\n';
+        msg += '📱 *WhatsApp:* ' + whatsapp + '\n';
+        if (empresa) msg += '🏭 *Empresa:* '    + empresa + '\n';
+        if (qtd)     msg += '🔢 *Quantidade:* ' + qtd     + '\n';
+        if (obs)     msg += '📝 *Observação:* ' + obs     + '\n';
+        msg += '\n_Enviado via Landing Page Alimentício_ [' + crm.lead + ']';
+
+        /* Abre ainda dentro do clique do usuário. Depois de um await o
+           navegador trata como popup e bloqueia. */
+        window.open('https://wa.me/554133468136?text=' + encodeURIComponent(msg), '_blank');
+
+        crm.enviar('lead_formulario', {
+            whatsapp: whatsapp, empresa: empresa, quantidade: qtd, observacao: obs
+        });
+
+        if (window.dataLayer) {
+            window.dataLayer.push({
+                event: 'lead_form_submit', form: 'lp_alimenticio',
+                lead_id: crm.lead, gclid: crm.origem.gclid || ''
+            });
+        }
+
+        /* Formspree segue como o alerta por e-mail da Equiproindi, agora
+           levando a origem junto com o lead. */
+        var fd = new FormData(form);
+        fd.append('lead_id',  crm.lead);
+        fd.append('gclid',    crm.origem.gclid        || '');
+        fd.append('campanha', crm.origem.utm_campaign || '');
+        fd.append('termo',    crm.origem.utm_term     || '');
+        fd.append('anuncio',  crm.origem.utm_content  || '');
+
+        function concluir() {
             form.style.display = 'none';
             document.getElementById('form-success').style.display = 'block';
+        }
 
-            if (window.dataLayer) {
-                window.dataLayer.push({ event: 'lead_form_submit', form: 'lp_alimenticio' });
-            }
-
-            // Monta mensagem com dados do formulário
-            var msg = '🛡️ *Novo pedido de orçamento — EPI Setor Alimentício*\n\n';
-            msg += '📱 *WhatsApp:* ' + whatsapp + '\n';
-            if (empresa)    msg += '🏭 *Empresa:* '    + empresa   + '\n';
-            if (obs)        msg += '📝 *Observação:* ' + obs        + '\n';
-            msg += '\n_Enviado via Landing Page Alimentício_';
-
-            var url = 'https://wa.me/554133468136?text=' + encodeURIComponent(msg);
-            setTimeout(function() { window.open(url, '_blank'); }, 800);
-        }, 900);
+        fetch('https://formspree.io/f/mreogbgd', {
+            method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+        }).then(concluir, concluir);
+        setTimeout(concluir, 2500);   /* rede lenta não deixa o lead no vazio */
     });
 
     /* ── PARTICLES ── */
